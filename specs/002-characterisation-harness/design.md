@@ -17,7 +17,7 @@ tests/
 ```
 
 ### Scenario files
-One line of input per line. A blank line is ENTER. Lines starting with `#` are comments (the first lines say what the scenario shows and which R-ID it serves). The program's menu numbers are in `main.c:517-531`. Every screen ends with "Press ENTER" (`screen.c:59-63`), so scripts need a blank line after each screen.
+One line of input per line. A blank line is ENTER. A line `---` starts a new run of the program on the same data (added in T4, see change log). Lines starting with `#` are comments (the first lines say what the scenario shows and which R-ID it serves). The program's menu numbers are in `main.c:517-531`. Every screen ends with "Press ENTER" (`screen.c:59-63`), so scripts need a blank line after each screen.
 
 ### How a scenario runs
 1. Create a temp dir, copy `tests/fixtures/data` to `<tmp>/data` (the program reads `data/` relative to its working directory, `dbfile.c:13`).
@@ -86,3 +86,4 @@ None to the program or its data. `tests/fixtures/data` is a copy used read-only:
 
 ## Change log
 (none yet)
+- 2026-11-07: scenario files may contain `---` lines that start a further program run on the same temp data. `stdout.txt` then holds `=== run N ===` sections and `exit_code.txt` one code per run; single-run output is unchanged. Reason: R8 requires showing that a Trade customer *reloads* as Retail (B2), which cannot be seen within one process. Found while writing the B2 scenario. Also useful for spec 004 (sell in one run, view the invoice after a reload).

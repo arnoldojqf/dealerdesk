@@ -1,0 +1,6 @@
+# R8: list customers (type column: Trade / Retail).
+2
+1
+
+0
+0

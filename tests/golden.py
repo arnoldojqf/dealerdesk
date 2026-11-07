@@ -35,32 +35,52 @@ def normalise(data, day):
     return data.decode("latin-1").replace(day, "<TODAY>").replace("\x1b", "<ESC>")
 
 
-def read_script(name):
-    lines = (SCENARIOS / (name + ".txt")).read_text().splitlines()
-    # '#' lines are comments; a blank line is the ENTER key.
-    return "".join(l + "\n" for l in lines if not l.startswith("#")).encode()
+def read_sessions(name):
+    """Scenario file -> list of stdin scripts, one per program run.
+
+    '#' lines are comments; a blank line is the ENTER key; a line of '---'
+    starts a new run of the program on the same data (to see what a reload
+    does, e.g. bug B2)."""
+    sessions, cur = [], []
+    for l in (SCENARIOS / (name + ".txt")).read_text().splitlines():
+        if l == "---":
+            sessions.append(cur)
+            cur = []
+        elif not l.startswith("#"):
+            cur.append(l)
+    sessions.append(cur)
+    return ["".join(l + "\n" for l in s).encode() for s in sessions]
 
 
 def run_once(binary, name, timeout, day):
     """Run one scenario in a temp dir. Returns a result dict."""
     with tempfile.TemporaryDirectory(prefix="dealerdesk-test-") as tmp:
         shutil.copytree(FIXTURE, Path(tmp) / "data")
-        try:
-            p = subprocess.run([str(binary)], cwd=tmp, input=read_script(name),
-                               capture_output=True, timeout=timeout)
-        except subprocess.TimeoutExpired:
-            return {"timed_out": True, "files": {}, "stderr": ""}
+        outs, codes, errs = [], [], ""
+        for script in read_sessions(name):
+            try:
+                p = subprocess.run([str(binary)], cwd=tmp, input=script,
+                                   capture_output=True, timeout=timeout)
+            except subprocess.TimeoutExpired:
+                return {"timed_out": True, "files": {}, "stderr": ""}
+            outs.append(normalise(p.stdout, day))
+            codes.append(p.returncode)
+            errs += p.stderr.decode("latin-1")
+        if len(outs) == 1:
+            stdout = outs[0]
+        else:
+            stdout = "".join("=== run %d ===\n%s\n" % (i + 1, o)
+                             for i, o in enumerate(outs))
         files = {
-            "stdout.txt": normalise(p.stdout, day),
-            "exit_code.txt": "%d\n" % p.returncode,
+            "stdout.txt": stdout,
+            "exit_code.txt": "".join("%d\n" % c for c in codes),
         }
         for dat in DAT_FILES:
             got = normalise((Path(tmp) / "data" / dat).read_bytes(), day)
             want = normalise((FIXTURE / dat).read_bytes(), day)
             if got != want:  # only changed files are stored (A3)
                 files["data/" + dat] = got
-        return {"timed_out": False, "files": files,
-                "stderr": p.stderr.decode("latin-1")}
+        return {"timed_out": False, "files": files, "stderr": errs}
 
 
 def run_scenario(binary, name, timeout):

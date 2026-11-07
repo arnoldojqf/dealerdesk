@@ -1,0 +1,12 @@
+# R8: add a retail customer (answer N to Trade), then list.
+2
+2
+Jane Doe
+07700 900111
+jane@example.com
+N
+
+1
+
+0
+0
