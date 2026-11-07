@@ -36,3 +36,9 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: the independent `spec-reviewer` pass (fresh context, told nothing about the implementation). I had considered the spec finished.
 - Fix: automated each check in `make test-selfcheck`, made stderr always fatal, corrected the spec, committed the report with a disposition for every finding.
 - Lesson: ask the author-side question "could this check fail?" for every pass, and let a reviewer who did not write it ask it too.
+
+## 2026-11-07: repo cloned into a subdirectory of the launch directory (phase 0 setup, found in phase 4)
+- What: the session was started in `~/src` and the repo cloned to `~/src/dealerdesk`. I never told the owner to relaunch inside the repo. The project settings, hook, commands and agent from spec 003 were therefore never loaded, and a `git push --dry-run` ran unblocked twice (before and after a restart).
+- Caught by: attempting the live proof (spec 003 T6) instead of claiming the rules worked, then checking where Claude Code keeps its per-project data (`~/.claude/projects/` has no entry for the repo) and that `~/src/.claude` does not exist.
+- Consequence: no damage (dry runs only, nothing pushed). The earlier explanation I logged ("settings are read at session start") was incomplete; the correction is in the spec 003 change log. CLAUDE.md now says to launch from the repo root.
+- Status: hypothesis, to be confirmed by relaunching from the repo root and rerunning T6.
