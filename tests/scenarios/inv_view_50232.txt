@@ -1,0 +1,7 @@
+# R11: existing invoice 50232 (Greenway Taxis, 8% given by hand through the salesman field).
+5
+2
+50232
+
+0
+0

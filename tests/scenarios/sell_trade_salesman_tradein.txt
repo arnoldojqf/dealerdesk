@@ -1,0 +1,16 @@
+# R10: trade customer 2002, vehicle 1003, 5% salesman discount and a 2000.00 trade-in. Run 2 views the invoice.
+4
+1003
+2002
+5
+2000
+Y
+
+0
+---
+5
+2
+50233
+
+0
+0

@@ -1,0 +1,16 @@
+# R10: confirmed retail sale of 1008 to 2003. Run 2 reloads the data and views the new invoice 50233.
+4
+1008
+2003
+0
+0
+Y
+
+0
+---
+5
+2
+50233
+
+0
+0

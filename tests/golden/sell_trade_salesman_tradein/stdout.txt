@@ -1,0 +1,115 @@
+=== run 1 ===
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 Sell Vehicle
+==============================================================
+
+  Vehicle ID  :   Customer ID :   Discount %  :   Trade-in    : 
+  INVOICE PREVIEW
+  ----------------------------------------------
+  Customer : Marlow Motors Ltd (Trade)
+  Vehicle  : BD68 KWP Volkswagen Golf 1.5 TSI Life
+  ----------------------------------------------
+  List price                   15995.00
+  Trade discount               -1599.50
+  Discount ( 5.0%)              -719.78
+  Net price                    13675.72
+  Delivery                       150.00
+  VAT 20%                       2765.14
+  Registration fee                55.00
+  Trade-in                     -2000.00
+  ==============================================
+  TOTAL                        14645.86
+
+  Confirm sale (Y/N)? 
+  Invoice 50233 created.
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.
+
+=== run 2 ===
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                     Invoices
+==============================================================
+
+  1. List invoices
+  2. View invoice
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 View Invoice
+==============================================================
+
+  Invoice no : 
+  INVOICE 50233    Date: <TODAY>
+  ----------------------------------------------
+  Customer : Marlow Motors Ltd
+  Vehicle  : BD68 KWP Volkswagen Golf 1.5 TSI Life
+  ----------------------------------------------
+  List price                   15995.00
+  Discounts                    -2319.28
+  Net price                    13675.72
+  Fees                           205.00
+  VAT                           2765.14
+  Trade-in                     -2000.00
+  ==============================================
+  TOTAL                        14645.86
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                     Invoices
+==============================================================
+
+  1. List invoices
+  2. View invoice
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.
+

@@ -9,7 +9,7 @@
 - [x] **T3.** Stock and menu scenarios (R7, R12 part): the `stock_*` set, `help_screen`, `menu_invalid_option`, `eof_mid_screen`.
 - [x] **T4.** Customer scenarios (R8, R13): the `cust_*` set and `bug_B2_empty_phone`.
 - [x] **T5.** Quote scenarios (R9): the `quote_*` set.
-- [ ] **T6.** Sale and invoice scenarios (R10, R11): `sell_*` and `inv_*`.
+- [x] **T6.** Sale and invoice scenarios (R10, R11): `sell_*` and `inv_*`.
 - [ ] **T7.** Golden review gate (A7). Independently recompute at least three quote totals and one saved invoice by a throwaway script (not committed), plus read every scenario's stdout. Report to the owner; fix scenario scripts only, never goldens by hand.
 - [ ] **T8.** `make test-asan`, CI steps, replace the R4 placeholder. Update spec 001 change log (R4 superseded) and `docs/DECISIONS.md` D9 (`<ESC>`). Serves R15, R16.
   Proof: green CI run, gcc and clang, with both test steps and the selfcheck on gcc.

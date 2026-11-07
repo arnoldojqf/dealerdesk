@@ -1,0 +1,60 @@
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                     Invoices
+==============================================================
+
+  1. List invoices
+  2. View invoice
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 View Invoice
+==============================================================
+
+  Invoice no : 
+  INVOICE 50231    Date: 2021-03-02
+  ----------------------------------------------
+  Customer : Marlow Motors Ltd
+  Vehicle  : EF66 TRX Mercedes-Benz C220d AMG Line
+  ----------------------------------------------
+  List price                   13495.00
+  Discounts                    -1349.50
+  Net price                    12145.50
+  Fees                           205.00
+  VAT                           2459.10
+  ==============================================
+  TOTAL                        14809.60
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                     Invoices
+==============================================================
+
+  1. List invoices
+  2. View invoice
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.

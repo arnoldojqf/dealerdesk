@@ -1,0 +1,7 @@
+# R11: existing invoice 50231 (trade customer, 10% trade discount).
+5
+2
+50231
+
+0
+0
