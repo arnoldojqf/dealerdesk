@@ -1,0 +1,57 @@
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Stock
+==============================================================
+
+  1. List stock
+  2. List all vehicles (incl. sold)
+  3. Add vehicle
+  4. Find by plate
+  5. Change price
+  6. Reserve / release vehicle
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 Find Vehicle
+==============================================================
+
+  Plate : 
+  No vehicle with plate kx21 buy
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Stock
+==============================================================
+
+  1. List stock
+  2. List all vehicles (incl. sold)
+  3. Add vehicle
+  4. Find by plate
+  5. Change price
+  6. Reserve / release vehicle
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.

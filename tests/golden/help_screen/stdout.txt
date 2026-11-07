@@ -1,0 +1,38 @@
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                         Help
+==============================================================
+
+  DEALERDESK QUICK HELP
+
+  - Plates are converted to upper case automatically.
+  - Trade customers receive a 5% trade discount.
+  - Salesman discounts above 10% require a manager PIN.
+  - Quotes are valid for 7 days.
+  - A sold vehicle cannot be reserved or sold again.
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.

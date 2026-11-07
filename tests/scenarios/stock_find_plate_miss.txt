@@ -1,0 +1,7 @@
+# R7: find by plate is case-sensitive: lower-case search misses an upper-case plate.
+1
+4
+kx21 buy
+
+0
+0

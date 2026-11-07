@@ -1,0 +1,10 @@
+# R7: change the price of 1004, then list stock to show it.
+1
+5
+1004
+16000
+
+1
+
+0
+0

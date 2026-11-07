@@ -1,0 +1,16 @@
+# R7: reserve 1002, release it, then refusals: sold vehicle 1001, unknown vehicle 9999.
+1
+6
+1002
+
+6
+1002
+
+6
+1001
+
+6
+9999
+
+0
+0

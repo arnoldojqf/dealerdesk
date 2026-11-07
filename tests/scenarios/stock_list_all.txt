@@ -1,0 +1,6 @@
+# R7: Stock menu, list all vehicles including sold ones (1001, 1009, 1012).
+1
+2
+
+0
+0
