@@ -9,9 +9,9 @@
   Proof: file and front-matter checks pass.
 - [x] **T4.** Rewrite `CLAUDE.md`: commands, layout, code-map summary, spec workflow, hard rules (including the A2 caveat and "explain C diffs before committing"). Serves R1.
   Proof: the R1 check passes.
-- [ ] **T5.** CI step running `make check-agent`. Serves R9.
+- [x] **T5.** CI step running `make check-agent`. Serves R9.
   Proof: green run (push needs your OK).
-- [ ] **T6.** Live proofs, each shown to the owner: (a) attempt `git push --dry-run origin master` through the tool and show it blocked; (b) attempt an Edit of a file under `tests/golden/` and show it blocked; (c) create a scratch `.c` file with a deliberate error, show the hook's feedback, delete it; (d) show that `python3 tests/golden.py --update` asks. Serves R3, R4, R6 (A7).
+- [ ] **T6.** (BLOCKED until a new session, see change log.) Live proofs, each shown to the owner: (a) attempt `git push --dry-run origin master` through the tool and show it blocked; (b) attempt an Edit of a file under `tests/golden/` and show it blocked; (c) create a scratch `.c` file with a deliberate error, show the hook's feedback, delete it; (d) show that `python3 tests/golden.py --update` asks. Serves R3, R4, R6 (A7).
 - [ ] **T7.** Run `/verify 002` (or the A6 fallback). Commit its report to `specs/002-characterisation-harness/verify-report.md`. Fix or record each gap. Serves R10.
 - [ ] **T8.** Close out: traceability, statuses, `docs/PLAN.md`, `docs/agent-log.md`; check `git diff baseline -- '*.c' '*.h' data` is empty. Serves R11.
 
@@ -32,4 +32,4 @@
 | R11 | `git diff baseline -- '*.c' '*.h' data` empty | todo |
 
 ## Change log
-(none yet)
+- 2026-11-07: T6 live proofs could not be completed in the session that wrote the settings. A `git push --dry-run origin master` was **not** blocked and a deliberately broken scratch `.c` file produced **no hook feedback**, although `.claude/settings.json` contained the deny rule and the hook. Most likely cause: Claude Code reads settings and hooks when a session starts, so mid-session edits are not applied (not verified from inside the session). Nothing was pushed (`origin/master` stayed at 82d74b5; the command was a dry run) and the scratch file was deleted. What is proven now: the hook script's behaviour (R6) by `make check-agent`, and the rule text (R3-R5). What is not: that the permission engine enforces the rules. T6 is moved to the first action of the next session; R3, R4 and R6 stay "pending" in the table until then. The edit of `tests/golden/` was deliberately not attempted, since an unenforced deny rule would have modified a golden.

@@ -39,6 +39,9 @@ jobs:
         if: matrix.cc == 'gcc'
         run: make CC=gcc test-selfcheck
 
+      - name: "R9 agent setup is well formed (settings, hook, commands)"
+        run: make check-agent
+
       - name: "R5 clean removes the binaries"
         run: |
           make clean
