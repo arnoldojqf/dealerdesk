@@ -5,7 +5,7 @@
 - [x] **T1.** Write `scripts/check-agent-setup.py` and `make check-agent`, with the checks for R1-R9. Run it: it must fail on every missing file (tests first). Serves R9.
 - [x] **T2.** `.claude/settings.json` (allow, ask, deny, hook wiring), `.claude/hooks/rebuild-on-c-edit.sh`, `.gitignore` line. Serves R2-R6.
   Proof: the settings and hook checks pass; the hook gives exit 2 on a deliberate error and exit 0 on clean code, in a temp copy.
-- [ ] **T3.** `.claude/agents/spec-reviewer.md` and `.claude/commands/{spec,implement,verify}.md`. Serves R7, R8.
+- [x] **T3.** `.claude/agents/spec-reviewer.md` and `.claude/commands/{spec,implement,verify}.md`. Serves R7, R8.
   Proof: file and front-matter checks pass.
 - [ ] **T4.** Rewrite `CLAUDE.md`: commands, layout, code-map summary, spec workflow, hard rules (including the A2 caveat and "explain C diffs before committing"). Serves R1.
   Proof: the R1 check passes.
