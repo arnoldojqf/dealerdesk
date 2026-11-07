@@ -16,7 +16,15 @@ case "$file" in
   *.c|*.h) ;;
   *) exit 0 ;;
 esac
-cd "${CLAUDE_PROJECT_DIR:-$PWD}" || exit 0
+# Build the tree that holds the edited file: walk up from it to the nearest
+# Makefile (differs from CLAUDE_PROJECT_DIR in a git worktree). Fall back to it.
+case "$file" in /*) ;; *) file="$PWD/$file" ;; esac
+root=$(dirname "$file")
+while [ "$root" != "/" ] && [ ! -f "$root/Makefile" ]; do
+  root=$(dirname "$root")
+done
+[ -f "$root/Makefile" ] || root="${CLAUDE_PROJECT_DIR:-$PWD}"
+cd "$root" || exit 0
 out=$(make warn 2>&1)
 rc=$?
 if [ "$rc" -ne 0 ] || printf '%s' "$out" | grep -qE 'warning:|error:'; then

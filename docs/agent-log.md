@@ -49,3 +49,9 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: attempting the live proof (spec 003 T6) instead of claiming the rules worked, then checking where Claude Code keeps its per-project data (`~/.claude/projects/` has no entry for the repo) and that `~/src/.claude` does not exist.
 - Consequence: no damage (dry runs only, nothing pushed). The earlier explanation I logged ("settings are read at session start") was incomplete; the correction is in the spec 003 change log. CLAUDE.md now says to launch from the repo root.
 - Status: hypothesis, to be confirmed by relaunching from the repo root and rerunning T6.
+
+## 2026-11-07: hook silence in a worktree read as "not loaded" (spec 003 T6 c)
+- What: a broken scratch `.c` file written in a git worktree produced no hook feedback. I first took it as the hook not firing, which was the earlier "settings not loaded" theory again.
+- Caught by: running `make warn` by hand (it fails, so the file would trip the hook) and reading the script: it does `cd "$CLAUDE_PROJECT_DIR"`, so it built the main checkout, where the file does not exist.
+- Fix: the hook builds the tree that holds the edited file (`check-agent` case written first and seen to fail). The agent's attempt to edit the hook was refused by the auto-mode classifier ("Self-Modification"); the owner applied the edit.
+- Lesson: a silent check is not evidence either way until you know what it checked. Guard rails are changed by the person they protect, not by the agent they constrain.

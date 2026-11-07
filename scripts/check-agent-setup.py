@@ -140,6 +140,21 @@ def check_hook():
         check("R6 non-C file does not run make", r.returncode == 0 and not (r.stdout + r.stderr).strip(),
               "rc=%s output=%r" % (r.returncode, (r.stdout + r.stderr)[:200]))
 
+    # The edited file may live in another tree (a git worktree) than the one the
+    # session was launched in. The hook must build the tree that holds the file.
+    with tempfile.TemporaryDirectory(prefix="dealerdesk-hook-a-") as a, \
+         tempfile.TemporaryDirectory(prefix="dealerdesk-hook-b-") as b:
+        a, b = Path(a), Path(b)
+        for d in (a, b):
+            for f in list(ROOT.glob("*.c")) + list(ROOT.glob("*.h")) + [ROOT / "Makefile"]:
+                shutil.copy(f, d)
+        broken = b / "calc.c"
+        broken.write_text(broken.read_text() + "\nint broken(void) { return ; \n")
+        r = run_hook(a, broken)  # project dir a is clean, the edited file is in b
+        check("R6 builds the tree that holds the edited file",
+              r.returncode == 2 and "error" in r.stderr,
+              "rc=%s stderr=%r" % (r.returncode, r.stderr[:200]))
+
 
 def check_commands_and_agent():
     for name in ("spec", "implement", "verify"):
