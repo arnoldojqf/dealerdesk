@@ -1,0 +1,5 @@
+# R9: sold vehicle 1001 is refused.
+3
+1001
+
+0

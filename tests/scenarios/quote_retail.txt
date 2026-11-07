@@ -1,0 +1,8 @@
+# R9: retail quote, vehicle 1008, no discount, no trade-in.
+3
+1008
+2003
+0
+0
+
+0

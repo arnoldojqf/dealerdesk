@@ -1,0 +1,45 @@
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Quote
+==============================================================
+
+  Vehicle ID  :   Customer ID :   Discount %  :   Trade-in    : 
+  QUOTATION (valid 7 days)
+  ----------------------------------------------
+  Customer : David Okafor (Retail)
+  Vehicle  : KX21 BUY Kia Sportage 1.6 GDi 3
+  ----------------------------------------------
+  List price                   25495.00
+  Net price                    25495.00
+  Delivery                       150.00
+  VAT 20%                       5129.00
+  Registration fee                55.00
+  Trade-in                     -3000.00
+  ==============================================
+  TOTAL                        27829.00
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.
