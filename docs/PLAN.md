@@ -23,7 +23,7 @@ Cut order if time runs short: differential test, then `/spec` polish, then the A
 | 001 | build-ci | bundled | implemented (verify pending) |
 | 002 | characterisation-harness | bundled | implemented (verify pending) |
 | 003 | agent-setup | bundled | implemented, open items (T6 c and d live proofs; CI run done) |
-| 004 | fleet-discount (TICKET-142) | 3 gates | requirements approved (gate 1), design pending |
+| 004 | fleet-discount (TICKET-142) | 3 gates | requirements approved (gate 1), design drafted (gate 2 pending) |
 
 Status values: draft, approved, implemented, verified.
 
