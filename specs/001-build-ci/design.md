@@ -56,3 +56,4 @@ None. No source, data or behaviour changes. `data/` is never touched by any targ
 
 ## Change log
 - 2026-11-07: CI step 4 also deletes `dealerdesk-raw` after the `cmp`. Reason: otherwise the R5 step (`ls dealerdesk*`) finds it and fails. Found by rereading the workflow before the first run.
+- 2026-11-07: R4 (`make test` is a placeholder) superseded by spec 002 T1: `make test` now runs the golden-master suite. Reason: that is what the placeholder was for. The CI step still named "R4 make test placeholder" is renamed in spec 002 T8.

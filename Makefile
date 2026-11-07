@@ -15,9 +15,9 @@ warn:
 asan:
 	$(CC) -fsanitize=address,undefined -g -o dealerdesk-asan $(SRC) -lm
 
-# Placeholder until spec 002 adds the golden-master tests.
-test:
-	@echo "no tests yet (see specs/002)"
+# Golden-master tests (spec 002).
+test: all
+	python3 tests/golden.py
 
 clean:
 	rm -f dealerdesk dealerdesk-warn dealerdesk-asan

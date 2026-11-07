@@ -1,0 +1,6 @@
+# R7: Stock menu, list stock (sold vehicles hidden), back, exit.
+1
+1
+
+0
+0
