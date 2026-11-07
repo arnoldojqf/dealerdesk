@@ -29,7 +29,7 @@ Everything else must behave exactly as today (`specs/README.md`, principles 1 an
 In the examples, money is rounded as today (`rnd2`, round half up, to the penny).
 
 - **R1 (mark when adding).** Given the Add Customer screen, when the user answers that the customer is a fleet customer, then the customer is saved as a fleet customer and the customer list and find screens show their type as `Fleet`.
-- **R2 (mark an existing customer).** Given an existing customer who is not fleet, when the user marks them as fleet through the app, then the change is saved, the customer shows as `Fleet`, and all their other fields are unchanged.
+- **R2 (mark an existing customer).** Given an existing Retail customer, when the user marks them as fleet through the app and confirms, then the change is saved, the customer shows as `Fleet`, and all their other fields are unchanged. A Trade customer is refused, a Fleet customer is reported as already fleet, an unknown ID is reported as not found, and answering No to the confirm changes nothing (A8).
 - **R3 (one kind per customer).** A customer is exactly one of Retail, Trade or Fleet. A fleet customer gets no trade discount, and a trade customer gets no fleet discount.
 - **R4 (fleet discount amount).** Given a quote for a fleet customer, then the fleet discount is `rnd2(list * 4%)`. Example: list 10000.00 gives 400.00; list 10495.00 gives 419.80.
 - **R5 (own line on the quote).** Given a quote for a fleet customer, then it shows a line `Fleet discount` with the negative amount, in the place where the trade discount line appears for trade customers, and only when the amount is above 0. The customer line reads `(Fleet)`.
@@ -37,11 +37,11 @@ In the examples, money is rounded as today (`rnd2`, round half up, to the penny)
 - **R7 (correct total).** Given a fleet customer, 0% salesman discount and no trade-in, list 10000.00 gives net 9600.00, VAT 1950.00 and total 11755.00; list 10495.00 gives net 10075.20, VAT 2045.04 and total 12325.24.
 - **R8 (salesman discount still works).** Given a fleet customer and a salesman discount of p%, then the salesman discount is p% (clamped 0-15 as today) of list minus the fleet discount, and it appears on its own line as today. Example: list 10495.00, 8%: fleet 419.80, salesman 806.02, net 9269.18, VAT 1883.84, total 11358.02 with no trade-in.
 - **R9 (trade-in).** The trade-in is subtracted from the total as entered, unchanged for fleet customers.
-- **R10 (invoice).** Given a confirmed sale to a fleet customer, then the invoice is stored with the same total as the quote, and viewing it shows the fleet discount on its own line labelled `Fleet discount`. The amount is stored in its own trailing field of `invoices.dat` (decision Q1).
+- **R10 (invoice).** Given a confirmed sale to a fleet customer, then the invoice is stored with the same total as the quote, and viewing it shows the fleet discount on its own line labelled `Fleet discount`. The amount is stored in its own trailing field of `invoices.dat` (decision Q1). On a fleet invoice the `Discounts` line (the other discounts) is shown only when it is above 0.
 - **R11 (non-fleet unchanged).** For a retail or trade customer, every quote, invoice preview and stored invoice, and the invoice view, is byte-identical to today for the same inputs, including the `Discounts -0.00` quirk (B10).
 - **R12 (existing data loads).** `customers.dat`, `invoices.dat`, `stock.dat` and `next_ids.dat` in today's format load without conversion. Existing invoices display exactly as today.
 - **R13 (files stay compatible).** A save made when there are no fleet customers and no fleet invoices writes the same bytes as today's program writes for the same data.
-- **R14 (existing tests).** Every existing golden stays byte-identical, except those on screens that R1 and R2 deliberately change (the customer menu, the Add Customer prompts, and anything that scripts them). Each such golden is updated through the harness with the criterion cited in the commit.
+- **R14 (existing tests).** Every existing golden stays byte-identical, except those on screens that R1 and R2 deliberately change (the customer menu, the Add Customer prompts, and anything that scripts them). These are exactly five: `cust_add_trade`, `cust_add_retail`, `cust_find`, `cust_list` and `bug_B2_empty_phone` (all show the customer menu). No quote, sale or invoice golden changes. Each such golden is updated through the harness with the criterion cited in the commit.
 
 ## Scope
 **In:** a fleet flag on customers (set when adding and for existing customers); the 4% fleet discount in the quote and sale; its own line on quote, invoice preview and invoice view; the displayed customer type; tests for all of the above; the matching docs (`docs/CODEMAP.md`, `docs/DECISIONS.md`).
@@ -63,6 +63,7 @@ Each one is an ambiguity in the ticket and the call made here. They are repeated
 - **A5.** Greenway Taxis stays Retail in the sample data until staff change it in the app (Out of scope). Invoice 50232 keeps its hand-given 8%.
 - **A6.** The quote line label is `Fleet discount`, shown only when above 0, to match the trade line. The percentage is not printed on it (the trade line does not print one either).
 - **A7.** A fleet customer's quote may still be at a reserved vehicle and so on exactly as for other customers; nothing about vehicle rules changes.
+- **A8.** Marking an existing customer as fleet is allowed only for a Retail customer, after a confirm question. A Trade customer is refused (it would silently swap the 10% trade discount for 4%), and a Fleet customer is told they are already fleet. There is no un-mark (Q3). Added at gate 2; see the design.
 
 ## Open questions
 - **Q1. Invoice storage. DECIDED (a), 2026-11-07.** The ticket wants the fleet discount as its own line on invoices, but a stored invoice holds one combined discount today. Options: (a) add a trailing `fleet_disc` field to `invoices.dat` (old data loads as 0; an old binary ignores it); (b) derive it from the customer's current type when viewing. I recommend (a), because (b) shows wrong figures if the customer's type changes later. Whatever is chosen, R11 and R12 must still hold.
@@ -73,3 +74,4 @@ Each one is an ambiguity in the ticket and the call made here. They are repeated
 ## Change log
 - 2026-11-07: first draft.
 - 2026-11-07: gate 1 passed. The owner approved the requirements with Q1 = (a) and Q2 = yes, and did not change A1-A7, Q3 or Q4, so they stand as written.
+- 2026-11-07: at gate 2 added A8, the R2 refusal cases, the R10 `Discounts` detail and the exact R14 list of five goldens. No acceptance criterion was removed. R4-R8 examples are arithmetic; the tests set prices or use stock vehicle 1002 (see the design).
