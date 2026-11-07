@@ -23,13 +23,13 @@ This is a **characterisation** suite. It records what the program does now, not 
 - **R6 (no hangs).** If the binary does not finish within the timeout, the scenario fails with a timeout message and the suite still finishes.
 - **R7 (stock).** Scenarios record: list stock, list all vehicles, add vehicle, find by plate (hit and miss), change price, reserve and release.
 - **R8 (customers).** Scenarios record: list, add retail, add trade, find customer, and the empty-phone bug B2 (a Trade customer reloads as Retail).
-- **R9 (quotes).** Scenarios record: retail quote without and with trade-in, trade-customer quote, salesman discount, discount clamped at 15% (input 20), negative discount treated as 0, a discount that lands on a half-penny, and the refusals (vehicle sold, vehicle not found, customer not found).
+- **R9 (quotes).** Scenarios record: retail quote without and with trade-in, trade-customer quote, salesman discount, discount clamped at 15% (input 20), negative discount treated as 0, a discount that lands on a half-penny, a reserved vehicle (which can still be quoted), and the refusals (vehicle sold, vehicle not found, customer not found).
 - **R10 (sales).** Scenarios record: a confirmed sale (new invoice line in `invoices.dat`, vehicle becomes sold, `next_ids.dat` advanced) followed by viewing that invoice, a cancelled sale (nothing saved), and a sale combining trade customer, salesman discount and trade-in.
 - **R11 (invoices).** Scenarios record: list invoices, view each of the three existing invoices (50230, 50231, 50232), and view a missing invoice.
 - **R12 (menus).** Scenarios record: the help screen, an invalid menu option, and end of input in the middle of a screen (exit code 0, no further output).
 - **R13 (bugs kept).** Every scenario that captures a known bug is named with its ID (e.g. `bug_B2_...`) and its approved output contains the buggy result. Nothing in this spec changes behaviour.
-- **R14 (regression detected).** `make test-selfcheck` builds a deliberately altered copy of the program (trade discount 10% changed to 11%) and passes only if the suite reports at least one failing scenario. It also checks a binary that hangs fails with a timeout (R6).
-- **R15 (any binary).** `--bin PATH` runs the suite against another binary. `make test` uses the gcc build; `make test-asan` uses `dealerdesk-asan` and also fails if anything is written to stderr.
+- **R14 (regression detected).** `make test-selfcheck` builds a deliberately altered copy of the program (trade discount 10% changed to 11%) and passes only if the suite reports at least one failing scenario. The same command also proves R2 (stderr output fails a scenario), R3 (two runs are identical), R4 (a tampered golden fails), R5 (a missing golden fails; `--update` is refused under `CI` and changes nothing) and R6 (a hanging binary times out).
+- **R15 (any binary).** `--bin PATH` runs the suite against another binary. `make test` uses the gcc build; `make test-asan` uses `dealerdesk-asan`. Any output on stderr fails a scenario in every run (see change log).
 - **R16 (CI).** The CI workflow runs `make test`, `make test-asan` and `make test-selfcheck` on gcc, and `make test` and `make test-asan` on clang, using the same approved files for both compilers.
 - **R17 (no code change).** No `.c` or `.h` file changes. Existing sample data in `data/` is untouched.
 
@@ -47,4 +47,4 @@ This is a **characterisation** suite. It records what the program does now, not 
 - **A7.** Each golden is reviewed by a human when created, and at least three totals are recomputed independently (throwaway script, not committed) before they are approved. Without that, a golden could enshrine a typo in a scenario.
 
 ## Change log
-(none yet)
+- 2026-11-07 (after `/verify 002`, see `verify-report.md`): (1) scenario files may contain `---` lines that start another program run on the same data, needed for B2 (see design change log); (2) R9 now lists the reserved-vehicle quote, which existed without a criterion; (3) any output on stderr now fails a scenario in every run, not only under `--fail-on-stderr` (R2 said stderr is captured; it was only enforced for the ASan run); (4) the manual one-off proofs for R3, R4, R5 and R15 became automated checks in `make test-selfcheck` (R14).

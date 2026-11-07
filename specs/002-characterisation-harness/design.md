@@ -34,7 +34,7 @@ The program always ends at EOF with `exit(0)` (`screen.c:29-32`), so no scenario
 `python3 tests/golden.py [--bin PATH] [--update] [--selfcheck] [NAME...]`
 - default binary `./dealerdesk`
 - `--update` refuses when `CI` is set, and prints which approved files it wrote
-- `--fail-on-stderr` fails a scenario if the program wrote anything to stderr (used for the ASan run, R15)
+- any output on stderr fails a scenario (changed after `/verify 002`: it was only enforced with `--fail-on-stderr`, which is now accepted but redundant)
 - `--selfcheck`: (a) copies the sources to a temp dir, changes `0.10` to `0.11` in `calc.c`, builds it, runs the suite against it, passes only if at least one scenario fails; (b) runs the suite with a fake binary that sleeps and passes only if every scenario reports a timeout, using a short timeout. (R14, R6)
 - After running, it hashes the repo's `data/` before and after and fails if it differs (R1).
 
@@ -44,12 +44,12 @@ The program always ends at EOF with `exit(0)` (`screen.c:29-32`), so no scenario
 - `test-selfcheck`: runs `python3 tests/golden.py --selfcheck`
 - `.PHONY` updated.
 
-### Scenarios (about 28)
+### Scenarios (34)
 | R | Scenarios |
 |---|---|
 | R7 | `stock_list`, `stock_list_all`, `stock_add_vehicle`, `stock_find_plate_hit`, `stock_find_plate_miss`, `stock_change_price`, `stock_reserve_release` |
 | R8 | `cust_list`, `cust_add_retail`, `cust_add_trade`, `cust_find`, `bug_B2_empty_phone` |
-| R9 | `quote_retail`, `quote_retail_tradein`, `quote_trade`, `quote_salesman_8pct`, `quote_clamp_20pct`, `quote_negative_pct`, `quote_half_penny`, `quote_sold_vehicle`, `quote_no_vehicle`, `quote_no_customer` |
+| R9 | `quote_retail`, `quote_retail_tradein`, `quote_trade`, `quote_salesman_8pct`, `quote_clamp_20pct`, `quote_negative_pct`, `quote_half_penny`, `quote_reserved_vehicle`, `quote_sold_vehicle`, `quote_no_vehicle`, `quote_no_customer` |
 | R10 | `sell_retail_view`, `sell_cancelled`, `sell_trade_salesman_tradein` |
 | R11 | `inv_list`, `inv_view_50230`, `inv_view_50231`, `inv_view_50232`, `inv_view_missing` |
 | R12 | `help_screen`, `menu_invalid_option`, `eof_mid_screen` |
@@ -87,3 +87,4 @@ None to the program or its data. `tests/fixtures/data` is a copy used read-only:
 ## Change log
 (none yet)
 - 2026-11-07: scenario files may contain `---` lines that start a further program run on the same temp data. `stdout.txt` then holds `=== run N ===` sections and `exit_code.txt` one code per run; single-run output is unchanged. Reason: R8 requires showing that a Trade customer *reloads* as Retail (B2), which cannot be seen within one process. Found while writing the B2 scenario. Also useful for spec 004 (sell in one run, view the invoice after a reload).
+- 2026-11-07 (after `/verify 002`): stderr output always fails a scenario. `--selfcheck` now also proves determinism, tampered and missing goldens, the `CI` refusal of `--update`, and that a stderr-only difference is caught, using a clean build of a temp copy of the sources and temporary golden folders (the real goldens are never written). Scenario count corrected to 34 and `quote_reserved_vehicle` added to the R9 row. Not changed: `--selfcheck` does not hash the repository's `data/` (it never runs the real data directory); the mutation depends on the literal `list * 0.10` in `calc.c` and asserts it loudly.

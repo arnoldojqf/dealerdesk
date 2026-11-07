@@ -142,7 +142,7 @@ def run_suite(binary, names, timeout, update=False, fail_on_stderr=False,
             print("FAIL %s: timed out after %ss" % (name, timeout))
             failures.append(name)
             continue
-        if fail_on_stderr and res["stderr"]:
+        if res["stderr"]:  # the program never writes to stderr; ASan/UBSan do
             print("FAIL %s: wrote to stderr:\n%s" % (name, res["stderr"]))
             failures.append(name)
             continue
@@ -166,36 +166,79 @@ def run_suite(binary, names, timeout, update=False, fail_on_stderr=False,
 
 
 def selfcheck(timeout):
-    """R14: prove the suite notices a regression and a hang."""
+    """Proves the suite itself works (R3, R4, R5, R6, R14, R15)."""
+    global GOLDEN
     names = all_names()
     cc = os.environ.get("CC", "gcc")
-    ok = True
+    results = []
+
+    def verdict(label, ok, detail=""):
+        print("selfcheck %-44s %s %s" % (label, "ok" if ok else "FAILED", detail))
+        results.append(ok)
+
+    real_golden = GOLDEN
     with tempfile.TemporaryDirectory(prefix="dealerdesk-selfcheck-") as tmp:
         tmp = Path(tmp)
         for src in list(ROOT.glob("*.c")) + list(ROOT.glob("*.h")):
             shutil.copy(src, tmp)
+        sources = [str(c) for c in tmp.glob("*.c")]
+        clean = tmp / "dealerdesk-clean"
+        subprocess.run([cc, "-o", str(clean)] + sources + ["-lm"], check=True)
+
+        # R14: a changed trade discount is noticed
         calc = (tmp / "calc.c").read_text()
         assert "list * 0.10" in calc, "mutation target moved"
         (tmp / "calc.c").write_text(calc.replace("list * 0.10", "list * 0.11"))
         mutant = tmp / "dealerdesk-mutant"
-        subprocess.run([cc, "-o", str(mutant)] + [str(c) for c in tmp.glob("*.c")]
-                       + ["-lm"], check=True)
+        subprocess.run([cc, "-o", str(mutant)] + sources + ["-lm"], check=True)
         failed = run_suite(mutant, names, timeout, quiet=True)
-        print("selfcheck mutation (trade 10%% -> 11%%): %d scenario(s) failed: %s"
-              % (len(failed), ", ".join(failed) or "NONE"))
-        if not failed:
-            print("SELFCHECK FAIL: the suite did not notice the mutation")
-            ok = False
+        verdict("R14 mutation (trade 10%->11%) fails scenarios", bool(failed), ", ".join(failed))
 
+        # R6: a hanging binary times out
         hang = tmp / "dealerdesk-hang"
         hang.write_text("#!/bin/sh\nsleep 30\n")
         hang.chmod(0o755)
-        failed = run_suite(hang, names[:1], 1, quiet=True)
-        if failed != names[:1]:
-            print("SELFCHECK FAIL: a hanging binary did not time out")
-            ok = False
-    print("selfcheck:", "ok" if ok else "FAILED")
-    return 0 if ok else 1
+        verdict("R6  hanging binary times out",
+                run_suite(hang, names[:1], 1, quiet=True) == names[:1])
+
+        # R3: two consecutive runs give identical captured output
+        a = run_scenario(clean, "sell_retail_view", timeout)
+        b = run_scenario(clean, "sell_retail_view", timeout)
+        verdict("R3  two runs are identical (date masked)", a == b and "<TODAY>" in a["files"]["stdout.txt"])
+
+        # R4: a tampered golden fails; R5: a missing golden fails with guidance
+        tampered = tmp / "golden-tampered"
+        shutil.copytree(real_golden, tampered)
+        f = tampered / "stock_list" / "stdout.txt"
+        f.write_text(f.read_text().replace("9 vehicle(s)", "8 vehicle(s)"))
+        GOLDEN = tampered
+        verdict("R4  tampered golden fails", run_suite(clean, ["stock_list"], timeout, quiet=True) == ["stock_list"])
+        GOLDEN = tmp / "golden-empty"
+        GOLDEN.mkdir()
+        verdict("R5  missing golden fails", run_suite(clean, ["stock_list"], timeout, quiet=True) == ["stock_list"])
+        GOLDEN = real_golden
+
+        # R5: --update is refused when CI is set, and changes nothing
+        before = sorted((p.name, p.read_bytes()) for p in (real_golden / "stock_list").rglob("*") if p.is_file())
+        r = subprocess.run([sys.executable, str(Path(__file__).resolve()), "--update", "stock_list"],
+                           env=dict(os.environ, CI="1"), capture_output=True, text=True)
+        after = sorted((p.name, p.read_bytes()) for p in (real_golden / "stock_list").rglob("*") if p.is_file())
+        verdict("R5  --update refused under CI, golden unchanged",
+                r.returncode == 2 and "refusing" in r.stdout and before == after)
+
+        # R2/R15: anything on stderr fails, even if stdout is identical
+        noisy = tmp / "dealerdesk-noisy"
+        noisy.write_text('#!/bin/sh\necho "ERROR: AddressSanitizer: fake" >&2\nexec "%s"\n' % clean)
+        noisy.chmod(0o755)
+        quiet_wrap = tmp / "dealerdesk-quiet"
+        quiet_wrap.write_text('#!/bin/sh\nexec "%s"\n' % clean)
+        quiet_wrap.chmod(0o755)
+        verdict("R2  stderr output fails the scenario",
+                run_suite(noisy, ["stock_list"], timeout, quiet=True) == ["stock_list"]
+                and run_suite(quiet_wrap, ["stock_list"], timeout, quiet=True) == [])
+    GOLDEN = real_golden
+    print("selfcheck:", "ok" if all(results) else "FAILED")
+    return 0 if all(results) else 1
 
 
 def all_names():
@@ -209,7 +252,8 @@ def main():
     ap.add_argument("--update", action="store_true",
                     help="rewrite approved files (refused when CI is set)")
     ap.add_argument("--selfcheck", action="store_true")
-    ap.add_argument("--fail-on-stderr", action="store_true")
+    ap.add_argument("--fail-on-stderr", action="store_true",
+                    help="accepted for compatibility; stderr output always fails now")
     ap.add_argument("--timeout", type=int, default=10)
     a = ap.parse_args()
 
