@@ -3,7 +3,7 @@
 CC  = gcc
 SRC = $(wildcard *.c)
 
-.PHONY: all warn asan test test-selfcheck clean
+.PHONY: all warn asan test test-asan test-selfcheck clean
 
 all:
 	$(CC) -o dealerdesk $(SRC) -lm
@@ -18,6 +18,10 @@ asan:
 # Golden-master tests (spec 002).
 test: all
 	python3 tests/golden.py
+
+# Same scenarios against the sanitizer build; any stderr output is a failure.
+test-asan: asan
+	ASAN_OPTIONS=detect_leaks=1 python3 tests/golden.py --bin ./dealerdesk-asan --fail-on-stderr
 
 # Proves the suite catches a regression and a hang (spec 002 R14).
 test-selfcheck:

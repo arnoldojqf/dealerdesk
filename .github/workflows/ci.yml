@@ -29,8 +29,15 @@ jobs:
           cmp dealerdesk dealerdesk-raw
           rm dealerdesk-raw
 
-      - name: "R4 make test placeholder"
-        run: make test
+      - name: "R15, R16 golden-master tests"
+        run: make CC=${{ matrix.cc }} test
+
+      - name: "R15, R16 golden-master tests under ASan and UBSan"
+        run: make CC=${{ matrix.cc }} test-asan
+
+      - name: "R14, R16 self-check: the suite catches a regression"
+        if: matrix.cc == 'gcc'
+        run: make CC=gcc test-selfcheck
 
       - name: "R5 clean removes the binaries"
         run: |
