@@ -1,7 +1,7 @@
 # Spec 002: characterisation harness: requirements
 
 **Review mode:** bundled. `requirements.md`, `design.md` and `tasks.md` are reviewed in one go.
-**Status:** draft
+**Status:** approved
 
 ## Problem
 There are no tests. Any change to this program, including TICKET-142, can silently alter what staff see or what gets saved. We need a safety net that records today's behaviour, bugs included, and fails when it changes.

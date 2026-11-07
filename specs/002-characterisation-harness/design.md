@@ -1,6 +1,6 @@
 # Spec 002: characterisation harness: design
 
-**Status:** draft
+**Status:** approved
 
 ## Approach
 A black-box golden-master harness in one Python file. It treats the program as a box that takes keystrokes and produces screens and data files. That needs no change to the C and works for any later binary (including the baseline, for spec 004).

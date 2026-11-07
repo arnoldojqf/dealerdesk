@@ -1,6 +1,6 @@
 # Spec 002: characterisation harness: tasks
 
-**Status:** draft. Each task is its own commit, message `spec 002 Tn: ...`. No C file changes. `--update` is run only to create the goldens of the scenarios in that task, then the output is reviewed before committing.
+**Status:** approved. Each task is its own commit, message `spec 002 Tn: ...`. No C file changes. `--update` is run only to create the goldens of the scenarios in that task, then the output is reviewed before committing.
 
 - [ ] **T1.** Harness core and fixture. Add `tests/fixtures/data/` (copy of baseline `data/`), `tests/golden.py` (run, normalise, compare, `--update`, `--bin`, timeout, data-untouched check), and a first scenario `stock_list`. Makefile `test` runs the harness. Serves R1-R6, R15 (default binary).
   Proof: `make test` passes; deleting one line of the golden makes it fail with a diff; `--update` under `CI=1` refuses; real `data/` hash unchanged.
