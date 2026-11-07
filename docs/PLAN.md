@@ -6,8 +6,8 @@ Budget: about 6-8 h in total. Each phase ends with a review and waits for approv
 
 | Phase | Scope | Est. | Status |
 |---|---|---|---|
-| 0 | Verify workspace (no spec) | 15 min | in progress |
-| 1 | Discovery: CODEMAP, specs/README, minimal CLAUDE.md (no spec) | 45 min | not started |
+| 0 | Verify workspace (no spec) | 15 min | done |
+| 1 | Discovery: CODEMAP, specs/README, minimal CLAUDE.md (no spec) | 45 min | done, awaiting review |
 | 2 | Spec 001: Makefile, .gitignore/.gitattributes, CI build (gcc + clang) | 45 min | not started |
 | 3 | Spec 002: golden-master harness, `make test`, ASan in CI | 1 h 45 | not started |
 | 4 | Spec 003: agent setup (settings, hook, slash commands, reviewer subagent) | 45 min | not started |
