@@ -54,6 +54,8 @@ def check_claude_md():
             continue  # placeholders, commands, and run-this-binary examples
         if tok in ("dealerdesk", "dealerdesk-warn", "dealerdesk-asan"):
             continue  # build outputs, not files in the repo
+        if re.fullmatch(r"\.\w+", tok) or tok in ("requirements.md", "design.md", "tasks.md"):
+            continue  # a file extension, or a file name that exists inside every spec folder
         if "/" in tok or re.search(r"\.(md|py|c|h|json|sh|yml)$", tok):
             if not (ROOT / tok.rstrip("/")).exists():
                 problems_here.append("names path '%s' that does not exist" % tok)

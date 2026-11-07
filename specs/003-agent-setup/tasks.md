@@ -7,7 +7,7 @@
   Proof: the settings and hook checks pass; the hook gives exit 2 on a deliberate error and exit 0 on clean code, in a temp copy.
 - [x] **T3.** `.claude/agents/spec-reviewer.md` and `.claude/commands/{spec,implement,verify}.md`. Serves R7, R8.
   Proof: file and front-matter checks pass.
-- [ ] **T4.** Rewrite `CLAUDE.md`: commands, layout, code-map summary, spec workflow, hard rules (including the A2 caveat and "explain C diffs before committing"). Serves R1.
+- [x] **T4.** Rewrite `CLAUDE.md`: commands, layout, code-map summary, spec workflow, hard rules (including the A2 caveat and "explain C diffs before committing"). Serves R1.
   Proof: the R1 check passes.
 - [ ] **T5.** CI step running `make check-agent`. Serves R9.
   Proof: green run (push needs your OK).
