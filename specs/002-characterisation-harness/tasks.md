@@ -4,7 +4,7 @@
 
 - [x] **T1.** Harness core and fixture. Add `tests/fixtures/data/` (copy of baseline `data/`), `tests/golden.py` (run, normalise, compare, `--update`, `--bin`, timeout, data-untouched check), and a first scenario `stock_list`. Makefile `test` runs the harness. Serves R1-R6, R15 (default binary).
   Proof: `make test` passes; deleting one line of the golden makes it fail with a diff; `--update` under `CI=1` refuses; real `data/` hash unchanged.
-- [ ] **T2.** Self-check. `--selfcheck` and `make test-selfcheck` (mutation to 11% plus hanging binary). Serves R6, R14.
+- [x] **T2.** Self-check. `--selfcheck` and `make test-selfcheck` (mutation to 11% plus hanging binary). Serves R6, R14.
   Proof: `make test-selfcheck` passes; run by hand with the mutation left in a copy to show the failing scenario names.
 - [ ] **T3.** Stock and menu scenarios (R7, R12 part): the `stock_*` set, `help_screen`, `menu_invalid_option`, `eof_mid_screen`.
 - [ ] **T4.** Customer scenarios (R8, R13): the `cust_*` set and `bug_B2_empty_phone`.
@@ -38,4 +38,4 @@
 | R17 | `git diff baseline -- '*.c' '*.h' data` is empty | todo |
 
 ## Change log
-(none yet)
+- 2026-11-07: scenario `quote_trade` created in T2 instead of T5. Reason: the self-check mutation (trade 10% to 11%) is only detectable by a trade-customer quote; with only `stock_list` the self-check would have failed. Verified by removing it: self-check exits 2.

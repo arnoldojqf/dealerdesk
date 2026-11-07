@@ -1,0 +1,9 @@
+# R9: quote for a trade customer (Marlow Motors, 2002) on vehicle 1008,
+# no salesman discount, no trade-in. Shows the "Trade discount" line.
+3
+1008
+2002
+0
+0
+
+0
