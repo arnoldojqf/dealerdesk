@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        cc: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "R1, R6 build with make"
+        run: make CC=${{ matrix.cc }}
+
+      - name: "R2 warnings build (warnings shown, not fatal)"
+        run: make CC=${{ matrix.cc }} warn
+
+      - name: "R3 sanitizer build"
+        run: make CC=${{ matrix.cc }} asan
+
+      - name: "R1 binary identical to the brief's command"
+        run: |
+          ${{ matrix.cc }} -o dealerdesk-raw *.c -lm
+          cmp dealerdesk dealerdesk-raw
+          rm dealerdesk-raw
+
+      - name: "R4 make test placeholder"
+        run: make test
+
+      - name: "R5 clean removes the binaries"
+        run: |
+          make clean
+          ls dealerdesk* 2>/dev/null && exit 1 || true
+
+      - name: "R7, R8 tree is clean after building"
+        run: |
+          make CC=${{ matrix.cc }}
+          make CC=${{ matrix.cc }} warn
+          make CC=${{ matrix.cc }} asan
+          test -z "$(git status --porcelain)"
+
+      - name: "R9 line endings: renormalize changes nothing"
+        run: |
+          git add --renormalize .
+          git diff --cached --quiet
