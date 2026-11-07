@@ -12,7 +12,7 @@
 - [x] **T5.** CI step running `make check-agent`. Serves R9.
   Proof: green run (push needs your OK).
 - [ ] **T6.** (BLOCKED until a new session, see change log.) Live proofs, each shown to the owner: (a) attempt `git push --dry-run origin master` through the tool and show it blocked; (b) attempt an Edit of a file under `tests/golden/` and show it blocked; (c) create a scratch `.c` file with a deliberate error, show the hook's feedback, delete it; (d) show that `python3 tests/golden.py --update` asks. Serves R3, R4, R6 (A7).
-- [ ] **T7.** Run `/verify 002` (or the A6 fallback). Commit its report to `specs/002-characterisation-harness/verify-report.md`. Fix or record each gap. Serves R10.
+- [x] **T7.** Run `/verify 002` (or the A6 fallback). Commit its report to `specs/002-characterisation-harness/verify-report.md`. Fix or record each gap. Serves R10.
 - [ ] **T8.** Close out: traceability, statuses, `docs/PLAN.md`, `docs/agent-log.md`; check `git diff baseline -- '*.c' '*.h' data` is empty. Serves R11.
 
 ## Traceability
