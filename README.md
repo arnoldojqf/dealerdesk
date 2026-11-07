@@ -26,7 +26,7 @@ You need a C compiler (gcc or clang). From the repository root:
 BUILD
 -----
 
-    gcc -o dealerdesk main.c dbfile.c screen.c report.c
+    gcc -o dealerdesk *.c -lm   (or just: make)
 
 (Windows releases are built with the Borland compiler on the old build PC.)
 
