@@ -41,7 +41,7 @@ No code without an approved spec. Read `specs/README.md`. Commands: `/spec <name
 ## Tests and goldens
 - Every acceptance criterion maps to an automated test whose name or comment cites the ID. Commit messages cite spec and task: `spec 004 T3: ...`.
 - Goldens change only for an intended behaviour change, through `python3 tests/golden.py --update <scenario>` (asks for confirmation; refused when `CI` is set). Never edit files under `tests/golden/` or `tests/fixtures/` by hand. The commit message names the criterion.
-- Non-fleet goldens must stay byte-identical when TICKET-142 lands.
+- When TICKET-142 lands, every quote, sale and invoice golden must stay byte-identical. Only the five customer-menu goldens may change, and only under spec 004 R14 (they show the new menu line).
 
 ## Hard rules
 1. Preserve existing behaviour exactly, bugs included. Record bugs in `docs/CODEMAP.md`; fix one only if the owner agrees.
