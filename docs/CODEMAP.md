@@ -60,7 +60,7 @@ Pipe-delimited text, one record per line, loaded with `strtok`. Blank lines and 
 - 50231: trade customer 2002, disc 1349.50 = 10% of 13495.00
 - 50232: Greenway Taxis (2008, retail), disc 839.60 = 8% of 10495.00, the hand-given "fleet" discount from the ticket
 
-## Discrepancies and bugs (recorded, not fixed)
+## Discrepancies and bugs (recorded, not fixed; each is pinned by a golden in `tests/golden/`)
 | ID | What | Where |
 |---|---|---|
 | B1 | README and help say trade discount is 5%; code gives 10% | `README.md:66`, `main.c:500`, `calc.c:29` |
@@ -72,3 +72,4 @@ Pipe-delimited text, one record per line, loaded with `strtok`. Blank lines and 
 | B7 | Main menu has no option 6 although README lists Reports; reports were removed | `README.md:57`, commit `399a544` |
 | B8 | Negative or unlimited trade-in is accepted | `main.c:324`, `calc.c:42` |
 | B9 | `calc.c` header comment says "VAT 20% on list price" | `calc.c:10` |
+| B10 | An invoice with no discount prints `Discounts -0.00` (negative zero from `-p->disc`). Pinned by `sell_retail_view`. | `main.c:461` |
