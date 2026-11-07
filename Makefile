@@ -3,7 +3,7 @@
 CC  = gcc
 SRC = $(wildcard *.c)
 
-.PHONY: all warn asan test test-asan test-selfcheck clean
+.PHONY: all warn asan test test-asan test-selfcheck check-agent clean
 
 all:
 	$(CC) -o dealerdesk $(SRC) -lm
@@ -26,6 +26,10 @@ test-asan: asan
 # Proves the suite catches a regression and a hang (spec 002 R14).
 test-selfcheck:
 	CC=$(CC) python3 tests/golden.py --selfcheck
+
+# Checks the committed agent setup is well formed (spec 003).
+check-agent:
+	python3 scripts/check-agent-setup.py
 
 clean:
 	rm -f dealerdesk dealerdesk-warn dealerdesk-asan

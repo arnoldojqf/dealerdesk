@@ -2,7 +2,7 @@
 
 **Status:** approved. Each task is its own commit, message `spec 003 Tn: ...`. No product files change. The check script is written first and fails until the files exist.
 
-- [ ] **T1.** Write `scripts/check-agent-setup.py` and `make check-agent`, with the checks for R1-R9. Run it: it must fail on every missing file (tests first). Serves R9.
+- [x] **T1.** Write `scripts/check-agent-setup.py` and `make check-agent`, with the checks for R1-R9. Run it: it must fail on every missing file (tests first). Serves R9.
 - [ ] **T2.** `.claude/settings.json` (allow, ask, deny, hook wiring), `.claude/hooks/rebuild-on-c-edit.sh`, `.gitignore` line. Serves R2-R6.
   Proof: the settings and hook checks pass; the hook gives exit 2 on a deliberate error and exit 0 on clean code, in a temp copy.
 - [ ] **T3.** `.claude/agents/spec-reviewer.md` and `.claude/commands/{spec,implement,verify}.md`. Serves R7, R8.
