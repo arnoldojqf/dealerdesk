@@ -1,6 +1,6 @@
 # Spec 001: build and CI: design
 
-**Status:** draft
+**Status:** approved
 
 ## Approach
 A small `Makefile`, two dotfiles and one workflow. No C changes.

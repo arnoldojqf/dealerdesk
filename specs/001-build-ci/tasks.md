@@ -1,6 +1,6 @@
 # Spec 001: build and CI: tasks
 
-**Status:** draft. Each task is its own commit, message `spec 001 Tn: ...`. The proving test for most criteria is a CI step (see design), run locally first with the same command.
+**Status:** approved. Each task is its own commit, message `spec 001 Tn: ...`. The proving test for most criteria is a CI step (see design), run locally first with the same command.
 
 - [ ] **T1.** Add `.gitignore` and `.gitattributes`. Serves R8, R9.
   Proof: `make`-free check locally: `git add --renormalize . && git diff --cached --quiet`; later the CI renormalize step.

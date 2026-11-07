@@ -20,7 +20,7 @@ Cut order if time runs short: differential test, then `/spec` polish, then the A
 
 | Spec | Title | Review mode | Status |
 |---|---|---|---|
-| 001 | build-ci | bundled | not drafted |
+| 001 | build-ci | bundled | approved |
 | 002 | characterisation-harness | bundled | not drafted |
 | 003 | agent-setup | bundled | not drafted |
 | 004 | fleet-discount (TICKET-142) | 3 gates | not drafted |

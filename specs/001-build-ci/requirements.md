@@ -1,7 +1,7 @@
 # Spec 001: build and CI: requirements
 
 **Review mode:** bundled. `requirements.md`, `design.md` and `tasks.md` are reviewed in one go.
-**Status:** draft
+**Status:** approved
 
 ## Problem
 There is no reliable build and no CI. The only build instruction is a README line that is wrong (`README.md:29` names `report.c`, omits `calc.c` and `-lm`). Nothing checks a commit. Every later spec needs a one-command build, warning and sanitizer builds, and a CI check on each commit.
