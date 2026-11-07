@@ -60,7 +60,10 @@ Pipe-delimited text, one record per line, loaded with `strtok`. Blank lines and 
 - 50231: trade customer 2002, disc 1349.50 = 10% of 13495.00
 - 50232: Greenway Taxis (2008, retail), disc 839.60 = 8% of 10495.00, the hand-given "fleet" discount from the ticket
 
-## Discrepancies and bugs (recorded, not fixed; each is pinned by a golden in `tests/golden/`)
+## Discrepancies and bugs (recorded, not fixed)
+
+Pinned by a golden today: B1, B3, B5 (`help_screen`), B2 (`bug_B2_empty_phone`), B3 clamp (`quote_clamp_20pct`), B4 (VAT in every quote), B10 (`sell_retail_view`). Not pinned: B8 (no negative trade-in scenario yet), B7 (visible only as the absent menu entry in every menu golden), B6 and B9 (documentation and comment errors, no behaviour).
+
 | ID | What | Where |
 |---|---|---|
 | B1 | README and help say trade discount is 5%; code gives 10% | `README.md:66`, `main.c:500`, `calc.c:29` |
