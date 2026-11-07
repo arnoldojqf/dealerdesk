@@ -1,6 +1,6 @@
 # Spec 001: build and CI: design
 
-**Status:** approved
+**Status:** implemented
 
 ## Approach
 A small `Makefile`, two dotfiles and one workflow. No C changes.
@@ -55,4 +55,4 @@ None. No source, data or behaviour changes. `data/` is never touched by any targ
 - The matrix job could fail on the first push for an unforeseen runner reason. Mitigation: push the workflow on its own commit and read the run before building further.
 
 ## Change log
-(none yet)
+- 2026-11-07: CI step 4 also deletes `dealerdesk-raw` after the `cmp`. Reason: otherwise the R5 step (`ls dealerdesk*`) finds it and fails. Found by rereading the workflow before the first run.
