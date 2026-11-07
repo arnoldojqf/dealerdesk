@@ -2,3 +2,4 @@ dealerdesk
 dealerdesk-warn
 dealerdesk-asan
 *.o
+.claude/settings.local.json
