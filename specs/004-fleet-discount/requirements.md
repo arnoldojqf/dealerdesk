@@ -1,7 +1,7 @@
 # Spec 004: fleet discount (TICKET-142): requirements
 
 **Review mode:** three gates (requirements, then design, then tasks), each approved on its own.
-**Status:** draft
+**Status:** requirements approved 2026-11-07 (gate 1); design draft pending
 
 ## Problem
 Sales staff give fleet customers (taxi firms, rental companies, delivery services; Greenway Taxis is the first) their discount by typing it into the salesman discount field. It is applied inconsistently and it uses up the salesperson's 0-15% negotiating room. The business wants the discount to be automatic, separate from the salesman discount, and visible as its own line.
@@ -37,7 +37,7 @@ In the examples, money is rounded as today (`rnd2`, round half up, to the penny)
 - **R7 (correct total).** Given a fleet customer, 0% salesman discount and no trade-in, list 10000.00 gives net 9600.00, VAT 1950.00 and total 11755.00; list 10495.00 gives net 10075.20, VAT 2045.04 and total 12325.24.
 - **R8 (salesman discount still works).** Given a fleet customer and a salesman discount of p%, then the salesman discount is p% (clamped 0-15 as today) of list minus the fleet discount, and it appears on its own line as today. Example: list 10495.00, 8%: fleet 419.80, salesman 806.02, net 9269.18, VAT 1883.84, total 11358.02 with no trade-in.
 - **R9 (trade-in).** The trade-in is subtracted from the total as entered, unchanged for fleet customers.
-- **R10 (invoice).** Given a confirmed sale to a fleet customer, then the invoice is stored with the same total as the quote, and viewing it shows the fleet discount on its own line labelled `Fleet discount`. See open question Q1 for how the amount is stored.
+- **R10 (invoice).** Given a confirmed sale to a fleet customer, then the invoice is stored with the same total as the quote, and viewing it shows the fleet discount on its own line labelled `Fleet discount`. The amount is stored in its own trailing field of `invoices.dat` (decision Q1).
 - **R11 (non-fleet unchanged).** For a retail or trade customer, every quote, invoice preview and stored invoice, and the invoice view, is byte-identical to today for the same inputs, including the `Discounts -0.00` quirk (B10).
 - **R12 (existing data loads).** `customers.dat`, `invoices.dat`, `stock.dat` and `next_ids.dat` in today's format load without conversion. Existing invoices display exactly as today.
 - **R13 (files stay compatible).** A save made when there are no fleet customers and no fleet invoices writes the same bytes as today's program writes for the same data.
@@ -64,11 +64,12 @@ Each one is an ambiguity in the ticket and the call made here. They are repeated
 - **A6.** The quote line label is `Fleet discount`, shown only when above 0, to match the trade line. The percentage is not printed on it (the trade line does not print one either).
 - **A7.** A fleet customer's quote may still be at a reserved vehicle and so on exactly as for other customers; nothing about vehicle rules changes.
 
-## Open questions (to settle at this gate or the design gate)
-- **Q1. Invoice storage.** The ticket wants the fleet discount as its own line on invoices, but a stored invoice holds one combined discount today. Options: (a) add a trailing `fleet_disc` field to `invoices.dat` (old data loads as 0; an old binary ignores it); (b) derive it from the customer's current type when viewing. I recommend (a), because (b) shows wrong figures if the customer's type changes later. Whatever is chosen, R11 and R12 must still hold. **Needs your answer.**
-- **Q2. Changed prompts.** To mark a customer when adding, Add Customer needs one more question, and the existing customer needs a new menu action. Both change screens that today's goldens pin (R14). Is that acceptable? The alternative of avoiding it (for example a single new menu option "Add fleet customer") still changes the customer menu. **Needs your answer.**
-- **Q3.** Should staff be able to un-mark a fleet customer (for a contract that ends)? Assumed no (Out).
-- **Q4.** Should the README and help screen mention fleet? Assumed no (Out).
+## Open questions
+- **Q1. Invoice storage. DECIDED (a), 2026-11-07.** The ticket wants the fleet discount as its own line on invoices, but a stored invoice holds one combined discount today. Options: (a) add a trailing `fleet_disc` field to `invoices.dat` (old data loads as 0; an old binary ignores it); (b) derive it from the customer's current type when viewing. I recommend (a), because (b) shows wrong figures if the customer's type changes later. Whatever is chosen, R11 and R12 must still hold.
+- **Q2. Changed prompts. DECIDED yes, 2026-11-07.** To mark a customer when adding, Add Customer needs one more question, and the existing customer needs a new menu action. Both change screens that today's goldens pin (R14). Is that acceptable? The alternative of avoiding it (for example a single new menu option "Add fleet customer") still changes the customer menu.
+- **Q3.** Should staff be able to un-mark a fleet customer (for a contract that ends)? Assumed no (Out). Not objected to at gate 1.
+- **Q4.** Should the README and help screen mention fleet? Assumed no (Out). Not objected to at gate 1.
 
 ## Change log
 - 2026-11-07: first draft.
+- 2026-11-07: gate 1 passed. The owner approved the requirements with Q1 = (a) and Q2 = yes, and did not change A1-A7, Q3 or Q4, so they stand as written.
