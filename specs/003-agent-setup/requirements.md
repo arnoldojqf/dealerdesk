@@ -1,7 +1,7 @@
 # Spec 003: agent setup: requirements
 
 **Review mode:** bundled. `requirements.md`, `design.md` and `tasks.md` are reviewed in one go.
-**Status:** approved
+**Status:** implemented with open items
 
 ## Problem
 The agent currently follows a minimal `CLAUDE.md` and rules that live only in the chat. Nothing stops it from pushing, editing sample data, hand-editing a golden file, or leaving a compiler warning behind. The spec workflow (`specs/README.md`) is followed by hand, and independent review means pasting a prompt. Part 1 of the brief asks for the agent setup to be committed and reusable, and TICKET-142 will be built through it.

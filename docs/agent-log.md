@@ -24,3 +24,15 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - What: the spec assumed B2 (empty phone) could be shown in one program run, and that `stock_list` alone was enough for the self-check.
 - Caught by: writing the scenarios. B2 only appears after a reload; the 11% mutation is invisible without a trade-customer quote.
 - Fix: both recorded in the spec change-logs (`---` run separator; `quote_trade` moved to T2). The self-check was shown to fail when no sensitive scenario exists.
+
+## 2026-11-07: assumed settings apply the moment they are written (spec 003)
+- What: I wrote `.claude/settings.json` (deny `git push`, build hook) and planned to prove the rules in the same session. A `git push --dry-run origin master` ran unblocked and a broken scratch `.c` produced no hook feedback.
+- Caught by: attempting the proof (T6) before claiming it. I chose a dry run for the push and skipped the golden-edit attempt, because an unenforced deny rule would have changed a golden.
+- Consequence: nothing was pushed (`origin/master` stayed at 82d74b5) and nothing was modified. The scripted check still proves the hook script and the rule text. Enforcement is marked pending in the spec, to be shown in a fresh session.
+- Likely cause (not verified): settings and hooks are read at session start.
+
+## 2026-11-07: "pass" marks that rested on manual one-offs (spec 002, found by /verify)
+- What: spec 002's traceability marked R3, R5 and part of R15 "pass" on checks I had run once by hand, and R2 on a stderr capture that only the ASan run enforced. Spec text had also drifted (28 vs 34 scenarios, a reserved-vehicle scenario with no criterion, the `---` format).
+- Caught by: the independent `spec-reviewer` pass (fresh context, told nothing about the implementation). I had considered the spec finished.
+- Fix: automated each check in `make test-selfcheck`, made stderr always fatal, corrected the spec, committed the report with a disposition for every finding.
+- Lesson: ask the author-side question "could this check fail?" for every pass, and let a reviewer who did not write it ask it too.
