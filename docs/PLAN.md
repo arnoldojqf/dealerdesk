@@ -22,7 +22,7 @@ Cut order if time runs short: differential test, then `/spec` polish, then the A
 |---|---|---|---|
 | 001 | build-ci | bundled | implemented (verify pending) |
 | 002 | characterisation-harness | bundled | implemented (verify pending) |
-| 003 | agent-setup | bundled | implemented, open items (live enforcement proof, CI run) |
+| 003 | agent-setup | bundled | implemented, open items (T6 c and d live proofs, CI run) |
 | 004 | fleet-discount (TICKET-142) | 3 gates | not drafted |
 
 Status values: draft, approved, implemented, verified.
@@ -33,3 +33,4 @@ Status values: draft, approved, implemented, verified.
 |---|---|---|
 | 2026-11-07 | Initial plan approved. CI moved into spec 001 (was a separate phase 3). | A green check on every later commit is worth 30 min early. |
 | 2026-11-07 | Added a step at the start of the next session: spec 003 T6 live proofs (deny rules, ask rules, build hook), before Phase 5 starts. Spec 002 got T10 after `/verify 002`. | Settings and hooks written mid-session were not enforced in that session. The review found manual-only "pass" marks. |
+| 2026-11-07 | Spec 003 T6 partly done: deny rules proven live (a, b). Hook (c) and ask rule (d) still open, to be run in an interactive session from the repo root. Allow rule for the harness narrowed so `--update` is not allowed by prefix. | The hook builds `$CLAUDE_PROJECT_DIR`, so it cannot be shown from a background worktree. `--update` ran without a prompt. |

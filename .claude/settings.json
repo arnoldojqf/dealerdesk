@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(make:*)",
-      "Bash(python3 tests/golden.py:*)",
+      "Bash(python3 tests/golden.py)",
+      "Bash(python3 tests/golden.py --selfcheck)",
       "Bash(python3 scripts/check-agent-setup.py:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",

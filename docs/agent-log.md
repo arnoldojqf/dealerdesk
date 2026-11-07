@@ -30,6 +30,13 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: attempting the proof (T6) before claiming it. I chose a dry run for the push and skipped the golden-edit attempt, because an unenforced deny rule would have changed a golden.
 - Consequence: nothing was pushed (`origin/master` stayed at 82d74b5) and nothing was modified. The scripted check still proves the hook script and the rule text. Enforcement is marked pending in the spec, to be shown in a fresh session.
 - Likely cause (not verified): settings and hooks are read at session start.
+- Update (later the same day): wrong cause. A session launched from the repo root enforced the deny rules (T6 a, b), so the launch directory was the problem.
+
+## 2026-11-07: allow rule was broader than the spec, so `--update` was not prompted (spec 003 T6)
+- What: R5 says the harness is allowed "without `--update`", but `settings.json` allowed `Bash(python3 tests/golden.py:*)`, which also matches `--update`. In the live proof `--update` ran with no prompt.
+- Caught by: running T6 d instead of trusting that the rule text was present (`make check-agent` only checked the text).
+- Fix: allow only the exact commands `golden.py` and `golden.py --selfcheck`. Not yet separated from `defaultMode: auto`; re-run in an interactive session.
+- Also: the build hook uses `$CLAUDE_PROJECT_DIR`, so it cannot be shown from a background worktree. I first read the silence as "hook broken" and checked before claiming either way.
 
 ## 2026-11-07: "pass" marks that rested on manual one-offs (spec 002, found by /verify)
 - What: spec 002's traceability marked R3, R5 and part of R15 "pass" on checks I had run once by hand, and R2 on a stderr capture that only the ASan run enforced. Spec text had also drifted (28 vs 34 scenarios, a reserved-vehicle scenario with no criterion, the `---` format).
