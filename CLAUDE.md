@@ -20,6 +20,8 @@ Run from the repository root. The program reads and writes `data/`, so never run
 Other compiler: `make CC=clang`. CI (`.github/workflows/ci.yml`) runs all of the above on gcc and clang.
 
 ## Layout
+Launch Claude Code from the repository root (`cd ~/src/dealerdesk && claude`). Project settings, hooks, commands and agents are read from the launch directory; from a parent directory none of the guard rails below are active.
+
 - `main.c`, `calc.c`, `dbfile.c`, `screen.c` and their headers: the program (about 900 lines).
 - `specs/`: one folder per piece of work, `specs/README.md` has the rules.
 - `tests/golden.py`: the harness. `tests/scenarios/` keystroke scripts, `tests/golden/` approved output, `tests/fixtures/data/` frozen copy of the sample data.
