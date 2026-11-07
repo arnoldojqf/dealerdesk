@@ -1,6 +1,6 @@
 # Spec 003: agent setup: tasks
 
-**Status:** implemented with open items (T6, R9 CI run, live behaviour of the commands; see traceability). Each task is its own commit, message `spec 003 Tn: ...`. No product files change. The check script is written first and fails until the files exist.
+**Status:** implemented with open items (T6 c and d, live behaviour of the commands; see traceability). Each task is its own commit, message `spec 003 Tn: ...`. No product files change. The check script is written first and fails until the files exist.
 
 - [x] **T1.** Write `scripts/check-agent-setup.py` and `make check-agent`, with the checks for R1-R9. Run it: it must fail on every missing file (tests first). Serves R9.
 - [x] **T2.** `.claude/settings.json` (allow, ask, deny, hook wiring), `.claude/hooks/rebuild-on-c-edit.sh`, `.gitignore` line. Serves R2-R6.
@@ -27,7 +27,7 @@
 | R6 | `make check-agent` runs the hook on clean, broken, warning and non-C input in a temp copy | script behaviour: pass. **Live firing: pending** (T6 c not demonstrable from a worktree; see change log) |
 | R7 | `make check-agent` (files, description, argument-hint) | form: pass. **Behaviour: manual, pending** (used for the first time on spec 004) |
 | R8 | `make check-agent` (front matter, read-only tool list); reviewer run in T7 | form: pass. Behaviour: partly (T7 used the A6 fallback because the agent type was not loaded) |
-| R9 | CI run with the `make check-agent` step | **pending the push** |
+| R9 | CI run with the `make check-agent` step | pass: CI run 42421288067 (commit 9a9f65a), step "R9 agent setup is well formed" printed `agent setup ok` on gcc and clang |
 | R10 | `specs/002-characterisation-harness/verify-report.md` | pass (report committed, every finding has a disposition) |
 | R11 | `git diff baseline -- *.c *.h data` empty | pass |
 
