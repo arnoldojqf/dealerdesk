@@ -1,6 +1,6 @@
 # Spec 003: agent setup: tasks
 
-**Status:** draft. Each task is its own commit, message `spec 003 Tn: ...`. No product files change. The check script is written first and fails until the files exist.
+**Status:** approved. Each task is its own commit, message `spec 003 Tn: ...`. No product files change. The check script is written first and fails until the files exist.
 
 - [ ] **T1.** Write `scripts/check-agent-setup.py` and `make check-agent`, with the checks for R1-R9. Run it: it must fail on every missing file (tests first). Serves R9.
 - [ ] **T2.** `.claude/settings.json` (allow, ask, deny, hook wiring), `.claude/hooks/rebuild-on-c-edit.sh`, `.gitignore` line. Serves R2-R6.

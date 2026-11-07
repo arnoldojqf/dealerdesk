@@ -1,6 +1,6 @@
 # Spec 003: agent setup: design
 
-**Status:** draft
+**Status:** approved
 
 ## Approach
 Plain files in the repo, in the places Claude Code reads them. One small script checks that they are well formed, so the setup cannot rot unnoticed.
