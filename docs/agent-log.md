@@ -55,3 +55,9 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: running `make warn` by hand (it fails, so the file would trip the hook) and reading the script: it does `cd "$CLAUDE_PROJECT_DIR"`, so it built the main checkout, where the file does not exist.
 - Fix: the hook builds the tree that holds the edited file (`check-agent` case written first and seen to fail). The agent's attempt to edit the hook was refused by the auto-mode classifier ("Self-Modification"); the owner applied the edit.
 - Lesson: a silent check is not evidence either way until you know what it checked. Guard rails are changed by the person they protect, not by the agent they constrain.
+
+## 2026-11-07: `--update` ran with no prompt in an interactive session (spec 003 T6 d)
+- What: `python3 tests/golden.py --update cust_list` was expected to hit the ask rule `Bash(python3 tests/golden.py --update:*)` and be answered No. It printed `UPDATED cust_list` with no prompt. `git status` and `git diff --stat tests/golden` were empty (identical bytes), so nothing changed.
+- Caught by: running the proof instead of assuming the narrowed allow rule was enough.
+- Likely cause (not verified): `defaultMode: auto` in `~/.claude/settings.json`, where the auto-mode classifier approves the command and the ask rule is not consulted. Not separated from rule precedence.
+- Lesson: R4 is not proven by the rule text. Rerun from a session started with `claude --permission-mode default`. Until then `--update` is guarded only by CLAUDE.md rule 1 and by reviewing `git diff tests/golden` before each commit.
