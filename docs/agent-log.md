@@ -73,3 +73,9 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: five existing goldens failing (`inv_view_50230`-`50232`, `sell_retail_view`, `sell_trade_salesman_tradein`). Their diffs were one space in the `Net price` line. I had not looked at the line myself and my first read of my own scenario output missed the shift.
 - Fix: restored the line exactly; `git diff -U0 -- main.c | grep -c "Net price"` is 0. All 43 existing tests pass again.
 - Lesson: an edit should match only the lines it changes. The golden tests are what stopped this, so never approve a golden to make such a failure go away; read the diff first.
+
+## 2026-11-08: R13 marked "pass" on evidence the reviewer found indirect; no test saved a fleet invoice twice (spec 004 `/verify`)
+- What: I marked R13 "pass" citing three existing goldens that were not written for R13, without saying so, and I had no test that loads a stored 12-field invoice and saves again.
+- Caught by: the fresh-context `spec-reviewer` (R13 "partly covered"); the round-trip gap I found while checking its note against the design.
+- Fix: T8 `fleet_sell_then_sell`, shown to fail on a throwaway saver that drops the 12th field; the R13, R11 and R14 rows now say what the evidence is.
+- Lesson: when a table says "pass", say whether the test was written for that criterion. A feature that adds an optional field needs a load, save, load round trip, not only a load and a view.
