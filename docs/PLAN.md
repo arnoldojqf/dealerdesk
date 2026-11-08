@@ -11,7 +11,7 @@ Budget: about 6-8 h in total. Each phase ends with a review and waits for approv
 | 2 | Spec 001: Makefile, .gitignore/.gitattributes, CI build (gcc + clang) | 45 min | done |
 | 3 | Spec 002: golden-master harness, `make test`, ASan in CI | 1 h 45 | done |
 | 4 | Spec 003: agent setup (settings, hook, slash commands, reviewer subagent) | 45 min | built; live proofs a, b, c, d done (d in default mode; auto mode skips ask rules) |
-| 5 | Spec 004: TICKET-142, three gates | 2 h 15 | in progress (spec 004 implemented and verified; push and clang CI pending) |
+| 5 | Spec 004: TICKET-142, three gates | 2 h 15 | spec 004 done: implemented, verified, pushed, CI green on gcc and clang |
 | 6 | NOTES.md, `make demo`, traceability table, walkthrough dry run | 45 min | not started |
 
 Cut order if time runs short: differential test, then `/spec` polish, then the ASan CI job (keep the gcc/clang job).
@@ -23,7 +23,7 @@ Cut order if time runs short: differential test, then `/spec` polish, then the A
 | 001 | build-ci | bundled | implemented (verify pending) |
 | 002 | characterisation-harness | bundled | implemented (verify pending) |
 | 003 | agent-setup | bundled | implemented; T6 live proofs a-d done (CI run done) |
-| 004 | fleet-discount (TICKET-142) | 3 gates | verified (T1-T8, `/verify 004` done); clang CI pending |
+| 004 | fleet-discount (TICKET-142) | 3 gates | verified (T1-T8, `/verify 004` done); pushed, CI green on gcc and clang |
 
 Status values: draft, approved, implemented, verified.
 
@@ -38,3 +38,4 @@ Status values: draft, approved, implemented, verified.
 | 2026-11-08 | Spec 003 T6 (d) shown live in default mode; T6 closed. Project settings now set `defaultMode: default`; CLAUDE.md corrected and the `make CC=` gap recorded. | The 2026-11-07 failure was `defaultMode: auto` skipping the ask rule. Confirm the new setting in a later session without `--permission-mode`. |
 | 2026-11-08 | Spec 004 gate 3 passed and T1-T6 implemented, one commit per task. | Tasks reviewed against the code and fixtures first; four small edits made to `tasks.md`. |
 | 2026-11-08 | `/verify 004` run; T8 added (`fleet_sell_then_sell`), report saved. | The review found no failing criterion; one test gap (a stored fleet invoice saved again) and wording on R13, R11, R14. |
+| 2026-11-08 | Spec 004 pushed to `origin/master`; CI run 42522889926 green on gcc and clang (47 tests each, plain and ASan/UBSan). | Closes the clang item (D10). |

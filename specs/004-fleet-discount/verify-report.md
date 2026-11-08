@@ -69,7 +69,7 @@
 | Goldens and screens the reviewer did not open (`cust_find`, `cust_list`, `fleet_mark_*`, the quote goldens, the find screen for R1) | True for the reviewer. The author read each against the hand figures while approving it (T2 to T5). | **Accepted.** The suite passes and the reviewer ran the evidence commands itself. |
 | Screen title `Mark Customer as Fleet` and the message wording chosen in code | True, and already recorded in the `tasks.md` change log (the design left them open). | **Accepted.** No change. |
 | Retail-only guard in `add_customer` | Equivalent to the design. | None. |
-| clang not run | Expected: it runs only in CI after a push, which is the owner's decision (rule 4, D10). | **Open.** Record the CI run in `tasks.md` after the push. |
+| clang not run | Expected: it runs only in CI after a push, which is the owner's decision (rule 4, D10). | **Closed 2026-11-08.** The owner pushed; CI run 42522889926 passed on gcc and clang (47 tests each, plain and ASan/UBSan). Recorded in `tasks.md`. |
 | `docs/CODEMAP.md` line numbers only spot-checked | The author checked every number cited in the fleet section against the files at T6. | None. |
 
 ## Lessons for the process
