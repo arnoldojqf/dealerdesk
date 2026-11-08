@@ -1,0 +1,18 @@
+# R5, R6 (spec 004 T4), also R3 (fleet customer gets no Trade line): mark Greenway Taxis (2008)
+# fleet, then quote real stock 1002 (10995.00), 0% salesman, no trade-in.
+# Hand figures: fleet 4% of 10995.00 = 439.80; net 10995.00 - 439.80 = 10555.20;
+# VAT 20% of (10555.20 + 150.00) = 2141.04; total 10555.20 + 150.00 + 2141.04 + 55.00 = 12901.24.
+# Customer line reads (Fleet); there is a Fleet discount line and no Trade discount line.
+2
+4
+2008
+Y
+
+0
+3
+1002
+2008
+0
+0
+
+0

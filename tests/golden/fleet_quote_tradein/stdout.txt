@@ -1,0 +1,85 @@
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  1. List customers
+  2. Add customer
+  3. Find customer
+  4. Mark customer as fleet
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                       Mark Customer as Fleet
+==============================================================
+
+  Customer ID :   Mark Greenway Taxis as fleet (Y/N)? 
+  Customer 2008 marked as fleet.
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  1. List customers
+  2. Add customer
+  3. Find customer
+  4. Mark customer as fleet
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Quote
+==============================================================
+
+  Vehicle ID  :   Customer ID :   Discount %  :   Trade-in    : 
+  QUOTATION (valid 7 days)
+  ----------------------------------------------
+  Customer : Greenway Taxis (Fleet)
+  Vehicle  : yf20 hbn Vauxhall Corsa 1.2 SE
+  ----------------------------------------------
+  List price                   10995.00
+  Fleet discount                -439.80
+  Net price                    10555.20
+  Delivery                       150.00
+  VAT 20%                       2141.04
+  Registration fee                55.00
+  Trade-in                     -2000.00
+  ==============================================
+  TOTAL                        10901.24
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.

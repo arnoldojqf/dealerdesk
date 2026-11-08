@@ -23,7 +23,7 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
   Goldens updated under R14: `cust_add_trade`, `cust_add_retail`, `cust_find`, `cust_list`, `bug_B2_empty_phone`. The diff of each must be the new menu line and nothing else; shown to the owner before approval.
 - [x] **T3. Add Customer asks Fleet (R1, R14).** `main.c`: after a No to Trade, ask `Fleet customer (Y/N)?`. Write the C prompt first; then, in the same commit, add the extra `N` line to `tests/scenarios/cust_add_retail.txt` (a scenario, not protected) and update its golden (the new prompt line only; the other four are not touched again). Before the prompt exists the extra `N` would be read as the ENTER, so the two changes belong together.
   Test first: `fleet_add_customer` (Trade N, Fleet Y, list, `---`, find shows `Fleet`; `customers.dat` ends `|F`). Fails before the prompt exists.
-- [ ] **T4. Fleet line on the quote (R3-R9).** `main.c`: customer line `(Fleet)` via `type_name()` (done in T2) and `Fleet discount` line when above 0, after the Trade line.
+- [x] **T4. Fleet line on the quote (R3-R9).** `main.c`: customer line `(Fleet)` via `type_name()` (done in T2) and `Fleet discount` line when above 0, after the Trade line.
   Tests first. Before T4 they show the right totals but no `Fleet discount` line; after T4 they match the figures in the comment:
   - `fleet_quote_1002` (R5, R6): 1002 at 10995.00, 0%: fleet 439.80, net 10555.20, VAT 2141.04, total 12901.24. No Trade line.
   - `fleet_quote_10000` (R4, R7): price set to 10000.00: fleet 400.00, net 9600.00, VAT 1950.00, total 11755.00.
@@ -45,13 +45,13 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
 |---|---|---|---|
 | R1 mark when adding | `fleet_add_customer` | T3 | pass (2026-11-08) |
 | R2 mark existing | `fleet_mark_greenway`, `fleet_mark_refused` | T2 | pass (2026-11-08) |
-| R3 one kind | `fleet_mark_refused` (trade refused), `fleet_quote_1002` (no Trade line for fleet), `fleet_quote_trade_unchanged`, `quote_trade` | T2, T4 | T2: trade refused (`fleet_mark_refused`) pass; T4 pending |
-| R4 amount | `fleet_quote_10000`, `fleet_quote_10495`, `fleet_quote_rounding` | T1, T4 | calculation done (T1), tests pending (T4) |
-| R5 own line, `(Fleet)` | `fleet_quote_1002` | T4 | pending |
-| R6 fees, VAT | Delivery, VAT, Registration lines of every `fleet_quote_*` | T4 | pending |
-| R7 total | `fleet_quote_10000`, `fleet_quote_10495` | T4 | pending |
-| R8 salesman | `fleet_quote_10495` (8%), `fleet_sell_view` | T4, T5 | pending |
-| R9 trade-in | `fleet_quote_tradein`, `fleet_sell_view` | T4, T5 | pending |
+| R3 one kind | `fleet_mark_refused` (trade refused), `fleet_quote_1002` (no Trade line for fleet), `fleet_quote_trade_unchanged`, `quote_trade` | T2, T4 | pass (2026-11-08) |
+| R4 amount | `fleet_quote_10000`, `fleet_quote_10495`, `fleet_quote_rounding` | T1, T4 | pass (2026-11-08) |
+| R5 own line, `(Fleet)` | `fleet_quote_1002` | T4 | pass (2026-11-08) |
+| R6 fees, VAT | Delivery, VAT, Registration lines of every `fleet_quote_*` | T4 | pass (2026-11-08) |
+| R7 total | `fleet_quote_10000`, `fleet_quote_10495` | T4 | pass (2026-11-08) |
+| R8 salesman | `fleet_quote_10495` (8%), `fleet_sell_view` | T4, T5 | quote: pass (T4); sale: pending (T5) |
+| R9 trade-in | `fleet_quote_tradein`, `fleet_sell_view` | T4, T5 | quote: pass (T4); sale: pending (T5) |
 | R10 invoice | `fleet_sell_view`, `fleet_sell_no_salesman` | T5 | pending |
 | R11 non-fleet unchanged | every existing `quote_*`, `sell_*`, `inv_*` golden unchanged; T1 run | T1, T7 | T1: 34 goldens byte-identical on gcc, ASan/UBSan (2026-11-08); T7 pending |
 | R12 existing data loads | `inv_view_50230`-`50232`, `inv_list`, `fleet_sell_view` run 2, `fleet_sell_no_salesman` run 2 | T5 | pending |

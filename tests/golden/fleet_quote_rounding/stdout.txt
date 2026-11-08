@@ -1,0 +1,128 @@
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Stock
+==============================================================
+
+  1. List stock
+  2. List all vehicles (incl. sold)
+  3. Add vehicle
+  4. Find by plate
+  5. Change price
+  6. Reserve / release vehicle
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 Change Price
+==============================================================
+
+  Vehicle ID :   WR21 OLC Toyota Yaris 1.5 Hybrid Icon, current price 16750.00
+  New price  : 
+  Price updated.
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Stock
+==============================================================
+
+  1. List stock
+  2. List all vehicles (incl. sold)
+  3. Add vehicle
+  4. Find by plate
+  5. Change price
+  6. Reserve / release vehicle
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  1. List customers
+  2. Add customer
+  3. Find customer
+  4. Mark customer as fleet
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                       Mark Customer as Fleet
+==============================================================
+
+  Customer ID :   Mark Greenway Taxis as fleet (Y/N)? 
+  Customer 2008 marked as fleet.
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  1. List customers
+  2. Add customer
+  3. Find customer
+  4. Mark customer as fleet
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Quote
+==============================================================
+
+  Vehicle ID  :   Customer ID :   Discount %  :   Trade-in    : 
+  QUOTATION (valid 7 days)
+  ----------------------------------------------
+  Customer : Greenway Taxis (Fleet)
+  Vehicle  : WR21 OLC Toyota Yaris 1.5 Hybrid Icon
+  ----------------------------------------------
+  List price                   10000.13
+  Fleet discount                -400.01
+  Net price                     9600.12
+  Delivery                       150.00
+  VAT 20%                       1950.02
+  Registration fee                55.00
+  ==============================================
+  TOTAL                        11755.14
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.
