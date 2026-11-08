@@ -252,6 +252,8 @@ static void add_customer(void)
     read_line("  Phone  : ", c.phone, sizeof c.phone);
     read_line("  Email  : ", c.email, sizeof c.email);
     c.type = confirm("  Trade customer (Y/N)? ") ? 'T' : 'R';
+    if (c.type == 'R' && confirm("  Fleet customer (Y/N)? "))
+        c.type = 'F';
 
     if (c.name[0] == 0) {
         printf("\n  Name is required.\n");

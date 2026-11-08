@@ -21,7 +21,7 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
   - `fleet_mark_greenway`: mark 2008 (Y), list shows `Fleet`, mark again says already fleet, `---`, list again (persisted). `customers.dat` differs from the fixture only in 2008's type.
   - `fleet_mark_refused`: trade 2002 refused, unknown 9999 `Customer not found.`, retail 2001 answered N gives `Cancelled.`. No data file changes.
   Goldens updated under R14: `cust_add_trade`, `cust_add_retail`, `cust_find`, `cust_list`, `bug_B2_empty_phone`. The diff of each must be the new menu line and nothing else; shown to the owner before approval.
-- [ ] **T3. Add Customer asks Fleet (R1, R14).** `main.c`: after a No to Trade, ask `Fleet customer (Y/N)?`. Write the C prompt first; then, in the same commit, add the extra `N` line to `tests/scenarios/cust_add_retail.txt` (a scenario, not protected) and update its golden (the new prompt line only; the other four are not touched again). Before the prompt exists the extra `N` would be read as the ENTER, so the two changes belong together.
+- [x] **T3. Add Customer asks Fleet (R1, R14).** `main.c`: after a No to Trade, ask `Fleet customer (Y/N)?`. Write the C prompt first; then, in the same commit, add the extra `N` line to `tests/scenarios/cust_add_retail.txt` (a scenario, not protected) and update its golden (the new prompt line only; the other four are not touched again). Before the prompt exists the extra `N` would be read as the ENTER, so the two changes belong together.
   Test first: `fleet_add_customer` (Trade N, Fleet Y, list, `---`, find shows `Fleet`; `customers.dat` ends `|F`). Fails before the prompt exists.
 - [ ] **T4. Fleet line on the quote (R3-R9).** `main.c`: customer line `(Fleet)` via `type_name()` (done in T2) and `Fleet discount` line when above 0, after the Trade line.
   Tests first. Before T4 they show the right totals but no `Fleet discount` line; after T4 they match the figures in the comment:
@@ -43,7 +43,7 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
 
 | Criterion | Proving test | Task | Status |
 |---|---|---|---|
-| R1 mark when adding | `fleet_add_customer` | T3 | pending |
+| R1 mark when adding | `fleet_add_customer` | T3 | pass (2026-11-08) |
 | R2 mark existing | `fleet_mark_greenway`, `fleet_mark_refused` | T2 | pass (2026-11-08) |
 | R3 one kind | `fleet_mark_refused` (trade refused), `fleet_quote_1002` (no Trade line for fleet), `fleet_quote_trade_unchanged`, `quote_trade` | T2, T4 | T2: trade refused (`fleet_mark_refused`) pass; T4 pending |
 | R4 amount | `fleet_quote_10000`, `fleet_quote_10495`, `fleet_quote_rounding` | T1, T4 | calculation done (T1), tests pending (T4) |
