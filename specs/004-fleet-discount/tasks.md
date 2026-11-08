@@ -1,6 +1,6 @@
 # Spec 004: fleet discount (TICKET-142): tasks
 
-**Status:** implemented 2026-11-08 (T1-T7 done); `/verify 004` and the clang CI run pending. Approved at gate 3 on 2026-11-08, requirements and design on 2026-11-07.
+**Status:** verified 2026-11-08 (T1-T8 done, `/verify 004` run, report in `verify-report.md`); the clang CI run is pending. Approved at gate 3 on 2026-11-08, requirements and design on 2026-11-07.
 **Review mode:** three gates. Each task is its own commit, message `spec 004 Tn: ...`, citing the criteria. Tests pass at every commit.
 
 ## How every task runs (tests first)
@@ -38,6 +38,7 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
   R11 and R13: the existing sale, invoice and add-customer goldens (data files included) stay byte-identical; `git diff --stat tests/golden` shows none of them.
 - [x] **T6. Known-bug interplay and docs, no C (R-b, A1-A8).** Scenario `fleet_B2_empty_phone`: add a Fleet customer with an empty phone, reload, list: type shows `Retail` (pins B2 as it does for Trade). `docs/CODEMAP.md`: B2 note and where the fleet code lives. `docs/DECISIONS.md`: A1-A8 (the requirements promised this, and it is missing today). `docs/PLAN.md` statuses.
 - [x] **T7. Close-out (R11, R13, R14).** `make warn`, `make test`, `make test-asan`, `make test-selfcheck`, `make check-agent`. `git diff --stat f8e6762 -- tests/golden`: only the five R14 goldens (T2, T3) and new `fleet_*` directories may appear; no `quote_*`, `sell_*`, `inv_*` or `stock_*`. `git diff baseline -- data` empty. clang runs in CI after the owner pushes (D10). Fill in the table below and set the statuses.
+- [x] **T8.** (added after `/verify 004`) Prove that a stored fleet invoice survives a later save. Scenario `fleet_sell_then_sell`: run 1 marks 2008 and sells 1002 (invoice 50233); run 2 sells 1008 to 2003 (50234), which loads the 12-field line and saves all five invoices again; run 3 views both and lists. Test only, no C. Serves R10, R12. Shown to fail on a throwaway saver that drops the 12th field (50233 loses `|439.80`, the view shows `Discounts -439.80` and no Fleet line).
 
 ## Traceability
 
@@ -52,11 +53,11 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
 | R7 total | `fleet_quote_10000`, `fleet_quote_10495` | T4 | pass (2026-11-08) |
 | R8 salesman | `fleet_quote_10495` (8%), `fleet_sell_view` | T4, T5 | pass (2026-11-08) |
 | R9 trade-in | `fleet_quote_tradein`, `fleet_sell_view` | T4, T5 | pass (2026-11-08) |
-| R10 invoice | `fleet_sell_view`, `fleet_sell_no_salesman` | T5 | pass (2026-11-08) |
-| R11 non-fleet unchanged | every existing `quote_*`, `sell_*`, `inv_*` golden unchanged; T1 run | T1, T7 | pass (2026-11-08): T1 and T7 runs, 46 tests on gcc and ASan/UBSan; no `quote_*`, `sell_*`, `inv_*` or `stock_*` golden changed since f8e6762. clang in CI after push (D10) |
-| R12 existing data loads | `inv_view_50230`-`50232`, `inv_list`, `fleet_sell_view` run 2, `fleet_sell_no_salesman` run 2 | T5 | pass (2026-11-08) |
-| R13 files same bytes | data files in `sell_retail_view`, `sell_trade_salesman_tradein`, `cust_add_trade` | T5, T7 | pass (2026-11-08): data files in the three goldens byte-identical; `git diff baseline -- data` empty |
-| R14 existing tests | `git diff --stat` on `tests/golden` (T7), five goldens named in T2 | T2, T7 | pass (2026-11-08): since f8e6762 only the five named goldens changed (menu line; `cust_add_retail` also the Fleet prompt) and twelve new `fleet_*` directories were added |
+| R10 invoice | `fleet_sell_view`, `fleet_sell_no_salesman`, `fleet_sell_then_sell` (50233 keeps `\|439.80` after a later save) | T5, T8 | pass (2026-11-08) |
+| R11 non-fleet unchanged | every existing `quote_*`, `sell_*`, `inv_*` golden unchanged; T1 run | T1, T7 | pass (2026-11-08): automated goldens on every run (47 tests, gcc and ASan/UBSan) plus the manual T7 diff stat; no `quote_*`, `sell_*`, `inv_*` or `stock_*` golden changed since f8e6762. clang in CI after push (D10) |
+| R12 existing data loads | `inv_view_50230`-`50232`, `inv_list`, `fleet_sell_view` run 2, `fleet_sell_no_salesman` run 2, `fleet_sell_then_sell` (12-field and 11-field lines in one file) | T5, T8 | pass (2026-11-08) |
+| R13 files same bytes | automated byte comparison of the data files in existing goldens (`sell_retail_view`, `sell_trade_salesman_tradein`, `cust_add_trade`); they were not written for R13 | T5, T7 | pass (2026-11-08): the three goldens' data files are byte-identical; `git diff baseline -- data` empty. Indirect evidence, see `verify-report.md` |
+| R14 existing tests | `git diff --stat` on `tests/golden` (T7), five goldens named in T2 | T2, T7 | pass (2026-11-08): manual T7 diff stat (a process criterion): since f8e6762 only the five named goldens changed (menu line; `cust_add_retail` also the Fleet prompt) |
 
 Each test name above is also cited in a `#` comment at the top of its scenario file (`# R4, R7: ...`).
 
@@ -67,3 +68,4 @@ If a task shows a figure, prompt text or criterion to be wrong, stop, fix the sp
 - 2026-11-07: first draft for gate 3. Hand figures re-derived before writing: all match the design. Added two scenarios beyond the design's list: `fleet_quote_trade_unchanged` (R3 contrast) and `fleet_B2_empty_phone` (R-b), and a docs task (A1-A8 into `docs/DECISIONS.md`).
 - 2026-11-08: gate 3 passed, with four edits after a review against the code and fixtures: hand figures added for `fleet_quote_trade_unchanged`; `fleet_quote_1002` cited under R3; a reload added to `fleet_sell_no_salesman` (also cited under R12); wording fixed in T3 (prompt, extra `N` and golden in one commit) and T5 (`Confirm sale: Y`). All other hand figures re-derived and match.
 - 2026-11-08: T1-T7 implemented, one commit per task (T1 4e98346, T2 7ff409c, T3 8be3622, T4 b7db048, T5 3573b16, T6 6333e6b, T7 close-out). No criterion, figure or prompt in the spec turned out to be wrong; the only deviations from the design are the screen title `Mark Customer as Fleet` and the exact `mark_fleet` message wording, which the design left open.
+- 2026-11-08 (after `/verify 004`): added T8. The independent review found no failing criterion and no drift, but no test loaded a 12-field invoice line and then saved again, so a saver that dropped the fleet field on a later sale would have passed every test. T8 adds `fleet_sell_then_sell` (test only, no C). Wording fixed: R13 now says its evidence is indirect (existing goldens not written for R13), and R11 and R14 say they also rest on the manual T7 diff stat. Dispositions in `verify-report.md`.
