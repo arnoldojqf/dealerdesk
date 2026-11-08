@@ -61,3 +61,9 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: running the proof instead of assuming the narrowed allow rule was enough.
 - Likely cause (not verified): `defaultMode: auto` in `~/.claude/settings.json`, where the auto-mode classifier approves the command and the ask rule is not consulted. Not separated from rule precedence.
 - Lesson: R4 is not proven by the rule text. Rerun from a session started with `claude --permission-mode default`. Until then `--update` is guarded only by CLAUDE.md rule 1 and by reviewing `git diff tests/golden` before each commit.
+
+## 2026-11-08: owner's `!` run read as a test of the ask rule; CLAUDE.md claimed a confirmation that does not exist (spec 003 T6 d)
+- What: the owner ran `python3 tests/golden.py --update cust_list` with `!` in a default-mode session. I reported only "no diff, nothing to revert" and did not say at once that `!` commands bypass the permission system, so the missing prompt proved nothing. Separately, CLAUDE.md said `--update` "asks for confirmation", but `tests/golden.py` has none; the only confirmation is the Claude Code ask rule.
+- Caught by: reading `golden.py` while planning the retest, then running the proof through the Bash tool in a default-mode session: the prompt appeared (No left the files untouched; Yes rewrote identical bytes).
+- Fix: CLAUDE.md now says where the confirmation comes from and when it is skipped; project settings set `defaultMode: default`; the `make CC=...` bypass is recorded as a known limit.
+- Lesson: before reading a missing prompt as a result, ask whether the path goes through the permission engine at all.

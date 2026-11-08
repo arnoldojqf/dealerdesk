@@ -1,5 +1,6 @@
 {
   "permissions": {
+    "defaultMode": "default",
     "allow": [
       "Bash(make:*)",
       "Bash(python3 tests/golden.py)",

@@ -40,7 +40,7 @@ No code without an approved spec. Read `specs/README.md`. Commands: `/spec <name
 
 ## Tests and goldens
 - Every acceptance criterion maps to an automated test whose name or comment cites the ID. Commit messages cite spec and task: `spec 004 T3: ...`.
-- Goldens change only for an intended behaviour change, through `python3 tests/golden.py --update <scenario>` (asks for confirmation; refused when `CI` is set). Never edit files under `tests/golden/` or `tests/fixtures/` by hand. The commit message names the criterion.
+- Goldens change only for an intended behaviour change, through `python3 tests/golden.py --update <scenario>` (the script does not ask: the confirmation is the Claude Code ask rule, which applies in default permission mode only, so `!` commands and auto mode skip it; the script itself refuses when `CI` is set). Never edit files under `tests/golden/` or `tests/fixtures/` by hand. The commit message names the criterion.
 - When TICKET-142 lands, every quote, sale and invoice golden must stay byte-identical. Only the five customer-menu goldens may change, and only under spec 004 R14 (they show the new menu line).
 
 ## Hard rules
@@ -54,4 +54,4 @@ No code without an approved spec. Read `specs/README.md`. Commands: `/spec <name
 8. When you or the owner get something wrong and it is caught, add it to `docs/agent-log.md`.
 
 ## Guard rails and their limits
-`.claude/settings.json` denies `git push`, `gh pr`, `gh repo`, remote changes, `rm -rf` and edits to `data/`, `tests/golden/` and `tests/fixtures/`, asks before `--update`, `git tag`, `git checkout`, `git reset` and `gh api`, and runs `make warn` after every `.c` or `.h` edit (exit 2 with the output if anything is wrong). These are prefix matches that guard against slips; they are **not a security boundary** (for example `bash -c "git push"` is not caught). Rules 1-8 are the primary control.
+`.claude/settings.json` denies `git push`, `gh pr`, `gh repo`, remote changes, `rm -rf` and edits to `data/`, `tests/golden/` and `tests/fixtures/`, asks before `--update`, `git tag`, `git checkout`, `git reset` and `gh api`, and runs `make warn` after every `.c` or `.h` edit (exit 2 with the output if anything is wrong). These are prefix matches that guard against slips; they are **not a security boundary** (for example `bash -c "git push"` is not caught). A second gap: `make:*` is allowed and `make test-selfcheck CC=...` puts `CC` into a shell line, so it can carry any command past the ask rule. The settings set `defaultMode: default` so the ask rules apply even when the user-level mode is `auto`; this takes effect from the next session. Ask rules were shown live in default mode on 2026-11-08 (spec 003 T6 d). Rules 1-8 are the primary control.
