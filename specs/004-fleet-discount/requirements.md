@@ -1,7 +1,7 @@
 # Spec 004: fleet discount (TICKET-142): requirements
 
 **Review mode:** three gates (requirements, then design, then tasks), each approved on its own.
-**Status:** requirements approved 2026-11-07 (gate 1); design draft pending
+**Status:** approved 2026-11-07 (gate 1). Design approved 2026-11-07 (gate 2), tasks 2026-11-08 (gate 3).
 
 ## Problem
 Sales staff give fleet customers (taxi firms, rental companies, delivery services; Greenway Taxis is the first) their discount by typing it into the salesman discount field. It is applied inconsistently and it uses up the salesperson's 0-15% negotiating room. The business wants the discount to be automatic, separate from the salesman discount, and visible as its own line.
@@ -75,3 +75,4 @@ Each one is an ambiguity in the ticket and the call made here. They are repeated
 - 2026-11-07: first draft.
 - 2026-11-07: gate 1 passed. The owner approved the requirements with Q1 = (a) and Q2 = yes, and did not change A1-A7, Q3 or Q4, so they stand as written.
 - 2026-11-07: at gate 2 added A8, the R2 refusal cases, the R10 `Discounts` detail and the exact R14 list of five goldens. No acceptance criterion was removed. R4-R8 examples are arithmetic; the tests set prices or use stock vehicle 1002 (see the design).
+- 2026-11-08: status line corrected; it still said "design draft pending" after gates 2 and 3 had passed. No criterion changed.
