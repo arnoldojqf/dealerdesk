@@ -1,6 +1,6 @@
 # Spec 004: fleet discount (TICKET-142): tasks
 
-**Status:** approved 2026-11-08 (gate 3). Requirements and design approved 2026-11-07.
+**Status:** implemented 2026-11-08 (T1-T7 done); `/verify 004` and the clang CI run pending. Approved at gate 3 on 2026-11-08, requirements and design on 2026-11-07.
 **Review mode:** three gates. Each task is its own commit, message `spec 004 Tn: ...`, citing the criteria. Tests pass at every commit.
 
 ## How every task runs (tests first)
@@ -37,7 +37,7 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
   - `fleet_sell_no_salesman` (R10, R12): 0%: view has no `Discounts` line; total 12901.24 equals the quote. `invoices.dat` line ends `|439.80`. Then `---` (reload) and view 50233 again: same output, so the 12th field survives a reload.
   R11 and R13: the existing sale, invoice and add-customer goldens (data files included) stay byte-identical; `git diff --stat tests/golden` shows none of them.
 - [x] **T6. Known-bug interplay and docs, no C (R-b, A1-A8).** Scenario `fleet_B2_empty_phone`: add a Fleet customer with an empty phone, reload, list: type shows `Retail` (pins B2 as it does for Trade). `docs/CODEMAP.md`: B2 note and where the fleet code lives. `docs/DECISIONS.md`: A1-A8 (the requirements promised this, and it is missing today). `docs/PLAN.md` statuses.
-- [ ] **T7. Close-out (R11, R13, R14).** `make warn`, `make test`, `make test-asan`, `make test-selfcheck`, `make check-agent`. `git diff --stat f8e6762 -- tests/golden`: only the five R14 goldens (T2, T3) and new `fleet_*` directories may appear; no `quote_*`, `sell_*`, `inv_*` or `stock_*`. `git diff baseline -- data` empty. clang runs in CI after the owner pushes (D10). Fill in the table below and set the statuses.
+- [x] **T7. Close-out (R11, R13, R14).** `make warn`, `make test`, `make test-asan`, `make test-selfcheck`, `make check-agent`. `git diff --stat f8e6762 -- tests/golden`: only the five R14 goldens (T2, T3) and new `fleet_*` directories may appear; no `quote_*`, `sell_*`, `inv_*` or `stock_*`. `git diff baseline -- data` empty. clang runs in CI after the owner pushes (D10). Fill in the table below and set the statuses.
 
 ## Traceability
 
@@ -53,10 +53,10 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
 | R8 salesman | `fleet_quote_10495` (8%), `fleet_sell_view` | T4, T5 | pass (2026-11-08) |
 | R9 trade-in | `fleet_quote_tradein`, `fleet_sell_view` | T4, T5 | pass (2026-11-08) |
 | R10 invoice | `fleet_sell_view`, `fleet_sell_no_salesman` | T5 | pass (2026-11-08) |
-| R11 non-fleet unchanged | every existing `quote_*`, `sell_*`, `inv_*` golden unchanged; T1 run | T1, T7 | T1: 34 goldens byte-identical on gcc, ASan/UBSan (2026-11-08); T7 pending |
+| R11 non-fleet unchanged | every existing `quote_*`, `sell_*`, `inv_*` golden unchanged; T1 run | T1, T7 | pass (2026-11-08): T1 and T7 runs, 46 tests on gcc and ASan/UBSan; no `quote_*`, `sell_*`, `inv_*` or `stock_*` golden changed since f8e6762. clang in CI after push (D10) |
 | R12 existing data loads | `inv_view_50230`-`50232`, `inv_list`, `fleet_sell_view` run 2, `fleet_sell_no_salesman` run 2 | T5 | pass (2026-11-08) |
-| R13 files same bytes | data files in `sell_retail_view`, `sell_trade_salesman_tradein`, `cust_add_trade` | T5, T7 | T5: data files byte-identical in the three goldens (pass, 2026-11-08); T7 pending |
-| R14 existing tests | `git diff --stat` on `tests/golden` (T7), five goldens named in T2 | T2, T7 | T2: five goldens differ by the menu line only (pass); T7 pending |
+| R13 files same bytes | data files in `sell_retail_view`, `sell_trade_salesman_tradein`, `cust_add_trade` | T5, T7 | pass (2026-11-08): data files in the three goldens byte-identical; `git diff baseline -- data` empty |
+| R14 existing tests | `git diff --stat` on `tests/golden` (T7), five goldens named in T2 | T2, T7 | pass (2026-11-08): since f8e6762 only the five named goldens changed (menu line; `cust_add_retail` also the Fleet prompt) and twelve new `fleet_*` directories were added |
 
 Each test name above is also cited in a `#` comment at the top of its scenario file (`# R4, R7: ...`).
 
@@ -66,3 +66,4 @@ If a task shows a figure, prompt text or criterion to be wrong, stop, fix the sp
 ## Change log
 - 2026-11-07: first draft for gate 3. Hand figures re-derived before writing: all match the design. Added two scenarios beyond the design's list: `fleet_quote_trade_unchanged` (R3 contrast) and `fleet_B2_empty_phone` (R-b), and a docs task (A1-A8 into `docs/DECISIONS.md`).
 - 2026-11-08: gate 3 passed, with four edits after a review against the code and fixtures: hand figures added for `fleet_quote_trade_unchanged`; `fleet_quote_1002` cited under R3; a reload added to `fleet_sell_no_salesman` (also cited under R12); wording fixed in T3 (prompt, extra `N` and golden in one commit) and T5 (`Confirm sale: Y`). All other hand figures re-derived and match.
+- 2026-11-08: T1-T7 implemented, one commit per task (T1 4e98346, T2 7ff409c, T3 8be3622, T4 b7db048, T5 3573b16, T6 6333e6b, T7 close-out). No criterion, figure or prompt in the spec turned out to be wrong; the only deviations from the design are the screen title `Mark Customer as Fleet` and the exact `mark_fleet` message wording, which the design left open.

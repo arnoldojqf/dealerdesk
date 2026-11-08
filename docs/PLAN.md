@@ -11,7 +11,7 @@ Budget: about 6-8 h in total. Each phase ends with a review and waits for approv
 | 2 | Spec 001: Makefile, .gitignore/.gitattributes, CI build (gcc + clang) | 45 min | done |
 | 3 | Spec 002: golden-master harness, `make test`, ASan in CI | 1 h 45 | done |
 | 4 | Spec 003: agent setup (settings, hook, slash commands, reviewer subagent) | 45 min | built; live proofs a, b, c, d done (d in default mode; auto mode skips ask rules) |
-| 5 | Spec 004: TICKET-142, three gates | 2 h 15 | in progress (gates 1-3 passed; T1-T6 done, T7 close-out pending) |
+| 5 | Spec 004: TICKET-142, three gates | 2 h 15 | in progress (spec 004 implemented; verify and push pending) |
 | 6 | NOTES.md, `make demo`, traceability table, walkthrough dry run | 45 min | not started |
 
 Cut order if time runs short: differential test, then `/spec` polish, then the ASan CI job (keep the gcc/clang job).
@@ -23,7 +23,7 @@ Cut order if time runs short: differential test, then `/spec` polish, then the A
 | 001 | build-ci | bundled | implemented (verify pending) |
 | 002 | characterisation-harness | bundled | implemented (verify pending) |
 | 003 | agent-setup | bundled | implemented; T6 live proofs a-d done (CI run done) |
-| 004 | fleet-discount (TICKET-142) | 3 gates | approved (gates 1-3); implemented through T6, T7 close-out pending, `/verify 004` pending |
+| 004 | fleet-discount (TICKET-142) | 3 gates | implemented (T1-T7); `/verify 004` and clang CI pending |
 
 Status values: draft, approved, implemented, verified.
 
