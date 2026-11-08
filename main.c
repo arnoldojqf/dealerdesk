@@ -208,11 +208,20 @@ static void stock_menu(void)
 
 /* -------------------------------------------------------- CUSTOMERS */
 
+static const char *type_name(char t)
+{
+    if (t == 'F')
+        return "Fleet";
+    if (t == 'T')
+        return "Trade";
+    return "Retail";
+}
+
 static void print_cust_row(CUSTOMER *c)
 {
     printf("  %-5d %-26.26s %-14s %-28.28s %s\n",
            c->id, c->name, c->phone, c->email,
-           c->type == 'T' ? "Trade" : "Retail");
+           type_name(c->type));
 }
 
 static void list_customers(void)
@@ -275,6 +284,32 @@ static void find_customer(void)
     pause_enter();
 }
 
+static void mark_fleet(void)
+{
+    CUSTOMER *c;
+    char prompt[96];
+
+    header("Mark Customer as Fleet");
+    c = find_cust(read_int("  Customer ID : "));
+    if (!c) {
+        printf("\n  Customer not found.\n");
+    } else if (c->type == 'F') {
+        printf("\n  %s is already a fleet customer.\n", c->name);
+    } else if (c->type == 'T') {
+        printf("\n  %s is a trade customer and cannot be changed to fleet.\n", c->name);
+    } else {
+        snprintf(prompt, sizeof prompt, "  Mark %s as fleet (Y/N)? ", c->name);
+        if (confirm(prompt)) {
+            c->type = 'F';
+            save_customers();
+            printf("\n  Customer %d marked as fleet.\n", c->id);
+        } else {
+            printf("\n  Cancelled.\n");
+        }
+    }
+    pause_enter();
+}
+
 static void customer_menu(void)
 {
     int opt;
@@ -284,12 +319,14 @@ static void customer_menu(void)
         printf("  1. List customers\n");
         printf("  2. Add customer\n");
         printf("  3. Find customer\n");
+        printf("  4. Mark customer as fleet\n");
         printf("  0. Back\n\n");
         opt = read_int("  Option: ");
         switch (opt) {
         case 1: list_customers(); break;
         case 2: add_customer(); break;
         case 3: find_customer(); break;
+        case 4: mark_fleet(); break;
         case 0: return;
         default:
             printf("  Invalid option\n");
@@ -333,7 +370,7 @@ static void print_quote(const char *title, QUOTE *q, VEHICLE *v, CUSTOMER *c)
 {
     printf("\n  %s\n", title);
     printf("  ----------------------------------------------\n");
-    printf("  Customer : %s (%s)\n", c->name, c->type == 'T' ? "Trade" : "Retail");
+    printf("  Customer : %s (%s)\n", c->name, type_name(c->type));
     printf("  Vehicle  : %s %s %s\n", v->plate, v->make, v->model);
     printf("  ----------------------------------------------\n");
     printf("  List price               %12.2f\n", q->list);

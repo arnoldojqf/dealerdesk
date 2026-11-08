@@ -17,6 +17,7 @@
   1. List customers
   2. Add customer
   3. Find customer
+  4. Mark customer as fleet
   0. Back
 
   Option: <ESC>[2J<ESC>[H==============================================================
@@ -37,6 +38,7 @@
   1. List customers
   2. Add customer
   3. Find customer
+  4. Mark customer as fleet
   0. Back
 
   Option: <ESC>[2J<ESC>[H==============================================================

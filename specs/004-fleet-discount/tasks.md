@@ -16,7 +16,7 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
 
 - [x] **T1. Calculation (R4, R8, R11).** `calc.h`: `fleet_disc` in `QUOTE`. `calc.c`: `fleet_disc = rnd2(list * 0.04)` for type `F`, else 0; salesman base and `net` subtract it.
   Test first: no new scenario can show it yet (no screen prints it, no customer is `F`). The proof is that all 34 existing goldens stay byte-identical, which is the R-a argument ("adding 0.0 changes nothing") checked on gcc and under ASan/UBSan. No golden changes.
-- [ ] **T2. Type name and Mark as fleet (R2, R3, R14, A8).** `main.c`: `type_name()` used by the customer row and the quote customer line; menu line `4. Mark customer as fleet`; `mark_fleet()`. `globals.h:33` comment.
+- [x] **T2. Type name and Mark as fleet (R2, R3, R14, A8).** `main.c`: `type_name()` used by the customer row and the quote customer line; menu line `4. Mark customer as fleet`; `mark_fleet()`. `globals.h:33` comment.
   Tests first (fail: option 4 is "Invalid option"):
   - `fleet_mark_greenway`: mark 2008 (Y), list shows `Fleet`, mark again says already fleet, `---`, list again (persisted). `customers.dat` differs from the fixture only in 2008's type.
   - `fleet_mark_refused`: trade 2002 refused, unknown 9999 `Customer not found.`, retail 2001 answered N gives `Cancelled.`. No data file changes.
@@ -44,8 +44,8 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
 | Criterion | Proving test | Task | Status |
 |---|---|---|---|
 | R1 mark when adding | `fleet_add_customer` | T3 | pending |
-| R2 mark existing | `fleet_mark_greenway`, `fleet_mark_refused` | T2 | pending |
-| R3 one kind | `fleet_mark_refused` (trade refused), `fleet_quote_1002` (no Trade line for fleet), `fleet_quote_trade_unchanged`, `quote_trade` | T2, T4 | pending |
+| R2 mark existing | `fleet_mark_greenway`, `fleet_mark_refused` | T2 | pass (2026-11-08) |
+| R3 one kind | `fleet_mark_refused` (trade refused), `fleet_quote_1002` (no Trade line for fleet), `fleet_quote_trade_unchanged`, `quote_trade` | T2, T4 | T2: trade refused (`fleet_mark_refused`) pass; T4 pending |
 | R4 amount | `fleet_quote_10000`, `fleet_quote_10495`, `fleet_quote_rounding` | T1, T4 | calculation done (T1), tests pending (T4) |
 | R5 own line, `(Fleet)` | `fleet_quote_1002` | T4 | pending |
 | R6 fees, VAT | Delivery, VAT, Registration lines of every `fleet_quote_*` | T4 | pending |
@@ -56,7 +56,7 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
 | R11 non-fleet unchanged | every existing `quote_*`, `sell_*`, `inv_*` golden unchanged; T1 run | T1, T7 | T1: 34 goldens byte-identical on gcc, ASan/UBSan (2026-11-08); T7 pending |
 | R12 existing data loads | `inv_view_50230`-`50232`, `inv_list`, `fleet_sell_view` run 2, `fleet_sell_no_salesman` run 2 | T5 | pending |
 | R13 files same bytes | data files in `sell_retail_view`, `sell_trade_salesman_tradein`, `cust_add_trade` | T5, T7 | pending |
-| R14 existing tests | `git diff --stat` on `tests/golden` (T7), five goldens named in T2 | T2, T7 | pending |
+| R14 existing tests | `git diff --stat` on `tests/golden` (T7), five goldens named in T2 | T2, T7 | T2: five goldens differ by the menu line only (pass); T7 pending |
 
 Each test name above is also cited in a `#` comment at the top of its scenario file (`# R4, R7: ...`).
 
