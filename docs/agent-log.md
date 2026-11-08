@@ -67,3 +67,9 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: reading `golden.py` while planning the retest, then running the proof through the Bash tool in a default-mode session: the prompt appeared (No left the files untouched; Yes rewrote identical bytes).
 - Fix: CLAUDE.md now says where the confirmation comes from and when it is skipped; project settings set `defaultMode: default`; the `make CC=...` bypass is recorded as a known limit.
 - Lesson: before reading a missing prompt as a result, ask whether the path goes through the permission engine at all.
+
+## 2026-11-08: an edit shortened an untouched line and shifted the invoice view (spec 004 T5)
+- What: while replacing the `Discounts` line in `view_invoice`, my edit text ended in the start of the next line (`Net price `) and the tool dropped one space of the unchanged `Net price` line. Every invoice view moved the number one column left.
+- Caught by: five existing goldens failing (`inv_view_50230`-`50232`, `sell_retail_view`, `sell_trade_salesman_tradein`). Their diffs were one space in the `Net price` line. I had not looked at the line myself and my first read of my own scenario output missed the shift.
+- Fix: restored the line exactly; `git diff -U0 -- main.c | grep -c "Net price"` is 0. All 43 existing tests pass again.
+- Lesson: an edit should match only the lines it changes. The golden tests are what stopped this, so never approve a golden to make such a failure go away; read the diff first.

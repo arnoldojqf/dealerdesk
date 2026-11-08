@@ -31,7 +31,7 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
   - `fleet_quote_rounding` (R4): price 10000.13: fleet 400.01 (4% is 400.0052), net 9600.12, VAT 1950.02, total 11755.14.
   - `fleet_quote_tradein` (R9): 1002, trade-in 2000.00: total 10901.24.
   - `fleet_quote_trade_unchanged` (R3): Trade customer 2002 on 1002 still gets 10% and no Fleet line (`quote_trade` already pins vehicle 1008; this adds the contrast in one scenario with a fleet quote). Hand figures: 1002 at 10995.00, 0%, no trade-in: trade 1099.50, net 9895.50, VAT 2009.10, total 12109.60.
-- [ ] **T5. Sale, storage and invoice view (R10, R12, R13).** `globals.h`: `fleet_disc` in `INVOICE`. `main.c`: `i->disc` includes it, `i->fleet_disc` set, invoice view per the design. `dbfile.c`: optional 12th field on load, written only when above 0.
+- [x] **T5. Sale, storage and invoice view (R10, R12, R13).** `globals.h`: `fleet_disc` in `INVOICE`. `main.c`: `i->disc` includes it, `i->fleet_disc` set, invoice view per the design. `dbfile.c`: optional 12th field on load, written only when above 0.
   Tests first:
   - `fleet_sell_view` (R9, R10, R12): mark 2008, sell 1002 at 8% with trade-in 1500.00 (Confirm sale: Y). Fleet 439.80, salesman 844.42, net 9710.78, VAT 1972.16, total 10387.94. `invoices.dat` gains `50233|...|439.80` as a 12th field. `---`, view 50233: `Fleet discount -439.80` and `Discounts -844.42`; then list invoices (11- and 12-field lines side by side).
   - `fleet_sell_no_salesman` (R10, R12): 0%: view has no `Discounts` line; total 12901.24 equals the quote. `invoices.dat` line ends `|439.80`. Then `---` (reload) and view 50233 again: same output, so the 12th field survives a reload.
@@ -50,12 +50,12 @@ Fleet customers are made inside the scenarios (mark Greenway Taxis 2008, or Add 
 | R5 own line, `(Fleet)` | `fleet_quote_1002` | T4 | pass (2026-11-08) |
 | R6 fees, VAT | Delivery, VAT, Registration lines of every `fleet_quote_*` | T4 | pass (2026-11-08) |
 | R7 total | `fleet_quote_10000`, `fleet_quote_10495` | T4 | pass (2026-11-08) |
-| R8 salesman | `fleet_quote_10495` (8%), `fleet_sell_view` | T4, T5 | quote: pass (T4); sale: pending (T5) |
-| R9 trade-in | `fleet_quote_tradein`, `fleet_sell_view` | T4, T5 | quote: pass (T4); sale: pending (T5) |
-| R10 invoice | `fleet_sell_view`, `fleet_sell_no_salesman` | T5 | pending |
+| R8 salesman | `fleet_quote_10495` (8%), `fleet_sell_view` | T4, T5 | pass (2026-11-08) |
+| R9 trade-in | `fleet_quote_tradein`, `fleet_sell_view` | T4, T5 | pass (2026-11-08) |
+| R10 invoice | `fleet_sell_view`, `fleet_sell_no_salesman` | T5 | pass (2026-11-08) |
 | R11 non-fleet unchanged | every existing `quote_*`, `sell_*`, `inv_*` golden unchanged; T1 run | T1, T7 | T1: 34 goldens byte-identical on gcc, ASan/UBSan (2026-11-08); T7 pending |
-| R12 existing data loads | `inv_view_50230`-`50232`, `inv_list`, `fleet_sell_view` run 2, `fleet_sell_no_salesman` run 2 | T5 | pending |
-| R13 files same bytes | data files in `sell_retail_view`, `sell_trade_salesman_tradein`, `cust_add_trade` | T5, T7 | pending |
+| R12 existing data loads | `inv_view_50230`-`50232`, `inv_list`, `fleet_sell_view` run 2, `fleet_sell_no_salesman` run 2 | T5 | pass (2026-11-08) |
+| R13 files same bytes | data files in `sell_retail_view`, `sell_trade_salesman_tradein`, `cust_add_trade` | T5, T7 | T5: data files byte-identical in the three goldens (pass, 2026-11-08); T7 pending |
 | R14 existing tests | `git diff --stat` on `tests/golden` (T7), five goldens named in T2 | T2, T7 | T2: five goldens differ by the menu line only (pass); T7 pending |
 
 Each test name above is also cited in a `#` comment at the top of its scenario file (`# R4, R7: ...`).

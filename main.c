@@ -438,7 +438,8 @@ static void sell_vehicle(void)
     i->veh_id = v->id;
     i->cust_id = c->id;
     i->list = q.list;
-    i->disc = q.trade_disc + q.disc;
+    i->disc = q.trade_disc + q.fleet_disc + q.disc;
+    i->fleet_disc = q.fleet_disc;
     i->net = q.net;
     i->vat = q.vat;
     i->fees = q.delivery + q.reg_fee;
@@ -499,7 +500,13 @@ static void view_invoice(void)
     printf("  Vehicle  : %s %s %s\n", v ? v->plate : "?", v ? v->make : "", v ? v->model : "");
     printf("  ----------------------------------------------\n");
     printf("  List price               %12.2f\n", p->list);
-    printf("  Discounts                %12.2f\n", -p->disc);
+    if (p->fleet_disc > 0) {
+        printf("  Fleet discount           %12.2f\n", -p->fleet_disc);
+        if (rnd2(p->disc - p->fleet_disc) > 0)
+            printf("  Discounts                %12.2f\n", -(p->disc - p->fleet_disc));
+    } else {
+        printf("  Discounts                %12.2f\n", -p->disc);
+    }
     printf("  Net price                %12.2f\n", p->net);
     printf("  Fees                     %12.2f\n", p->fees);
     printf("  VAT                      %12.2f\n", p->vat);

@@ -1,0 +1,30 @@
+# R8, R9, R10, R12 (spec 004 T5): mark Greenway Taxis (2008) fleet, sell 1002 at 8% salesman with a
+# 1500.00 trade-in (Confirm sale: Y). Run 2 (after ---) views the new invoice 50233, then lists invoices.
+# Hand figures: fleet 439.80; salesman 8% of (10995.00 - 439.80) = 844.416 -> 844.42; net 10555.20 - 844.42 = 9710.78;
+# VAT 20% of 9860.78 = 1972.156 -> 1972.16; total 9710.78 + 150.00 + 1972.16 + 55.00 - 1500.00 = 10387.94.
+# invoices.dat gains 50233|<date>|1002|2008|10995.00|1284.22|9710.78|1972.16|205.00|1500.00|10387.94|439.80
+# (disc 1284.22 = 439.80 + 844.42; the 12th field is the fleet discount).
+# The view shows "Fleet discount -439.80" and "Discounts -844.42". The list shows 11- and 12-field lines side by side.
+2
+4
+2008
+Y
+
+0
+4
+1002
+2008
+8
+1500
+Y
+
+0
+---
+5
+2
+50233
+
+1
+
+0
+0
