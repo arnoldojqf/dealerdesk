@@ -20,8 +20,8 @@ Cut order if time runs short: differential test, then `/spec` polish, then the A
 
 | Spec | Title | Review mode | Status |
 |---|---|---|---|
-| 001 | build-ci | bundled | implemented (verify pending) |
-| 002 | characterisation-harness | bundled | implemented (verify pending) |
+| 001 | build-ci | bundled | implemented; checked by hand (T5), no independent `/verify` run |
+| 002 | characterisation-harness | bundled | verified 2026-11-07 (`/verify 002`, report in `specs/002-characterisation-harness/verify-report.md`, T10 fixes done) |
 | 003 | agent-setup | bundled | implemented; T6 live proofs a-d done (CI run done) |
 | 004 | fleet-discount (TICKET-142) | 3 gates | verified (T1-T8, `/verify 004` done); pushed, CI green on gcc and clang |
 
@@ -39,3 +39,4 @@ Status values: draft, approved, implemented, verified.
 | 2026-11-08 | Spec 004 gate 3 passed and T1-T6 implemented, one commit per task. | Tasks reviewed against the code and fixtures first; four small edits made to `tasks.md`. |
 | 2026-11-08 | `/verify 004` run; T8 added (`fleet_sell_then_sell`), report saved. | The review found no failing criterion; one test gap (a stored fleet invoice saved again) and wording on R13, R11, R14. |
 | 2026-11-08 | Spec 004 pushed to `origin/master`; CI run 42522889926 green on gcc and clang (47 tests each, plain and ASan/UBSan). | Closes the clang item (D10). |
+| 2026-11-08 | Spec index: 002 set to verified (its `/verify` report and fixes exist); 001 reworded to say it was checked by hand only. | The rows still said "verify pending" after the 002 review had been run and fixed. 001 has no independent review, so it is not marked verified. |
