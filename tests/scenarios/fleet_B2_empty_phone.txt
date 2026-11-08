@@ -1,0 +1,22 @@
+# R-b (spec 004 T6): bug B2 for a FLEET customer, as bug_B2_empty_phone does for Trade.
+# Run 1 adds a fleet customer (Trade N, Fleet Y) with an empty phone; the saved line is
+# 2009|FleetNoPhone||x@y.example|F, but strtok collapses the empty field on reload.
+# Run 2 lists customers: the email is shifted into the phone column, the type letter F into the
+# email column, and the type shows Retail. A fleet customer with an empty phone therefore loses
+# the flag on reload, exactly as a Trade customer does today. Recorded, not fixed (D8).
+2
+2
+FleetNoPhone
+
+x@y.example
+N
+Y
+
+0
+0
+---
+2
+1
+
+0
+0

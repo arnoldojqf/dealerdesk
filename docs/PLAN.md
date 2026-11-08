@@ -11,7 +11,7 @@ Budget: about 6-8 h in total. Each phase ends with a review and waits for approv
 | 2 | Spec 001: Makefile, .gitignore/.gitattributes, CI build (gcc + clang) | 45 min | done |
 | 3 | Spec 002: golden-master harness, `make test`, ASan in CI | 1 h 45 | done |
 | 4 | Spec 003: agent setup (settings, hook, slash commands, reviewer subagent) | 45 min | built; live proofs a, b, c, d done (d in default mode; auto mode skips ask rules) |
-| 5 | Spec 004: TICKET-142, three gates | 2 h 15 | in progress (tasks gate) |
+| 5 | Spec 004: TICKET-142, three gates | 2 h 15 | in progress (gates 1-3 passed; T1-T6 done, T7 close-out pending) |
 | 6 | NOTES.md, `make demo`, traceability table, walkthrough dry run | 45 min | not started |
 
 Cut order if time runs short: differential test, then `/spec` polish, then the ASan CI job (keep the gcc/clang job).
@@ -23,7 +23,7 @@ Cut order if time runs short: differential test, then `/spec` polish, then the A
 | 001 | build-ci | bundled | implemented (verify pending) |
 | 002 | characterisation-harness | bundled | implemented (verify pending) |
 | 003 | agent-setup | bundled | implemented; T6 live proofs a-d done (CI run done) |
-| 004 | fleet-discount (TICKET-142) | 3 gates | requirements and design approved (gates 1-2), tasks drafted (gate 3 pending) |
+| 004 | fleet-discount (TICKET-142) | 3 gates | approved (gates 1-3); implemented through T6, T7 close-out pending, `/verify 004` pending |
 
 Status values: draft, approved, implemented, verified.
 
@@ -36,3 +36,4 @@ Status values: draft, approved, implemented, verified.
 | 2026-11-07 | Spec 003 T6 partly done: deny rules proven live (a, b). Hook (c) and ask rule (d) still open, to be run in an interactive session from the repo root. Allow rule for the harness narrowed so `--update` is not allowed by prefix. | The hook builds `$CLAUDE_PROJECT_DIR`, so it cannot be shown from a background worktree. `--update` ran without a prompt. |
 | 2026-11-07 | Spec 003 T6: (c) hook shown live from the main checkout and a worktree. (d) failed: `--update` ran with no prompt under `defaultMode: auto`. | Rerun (d) with `claude --permission-mode default`; meanwhile review `git diff tests/golden` before every commit. |
 | 2026-11-08 | Spec 003 T6 (d) shown live in default mode; T6 closed. Project settings now set `defaultMode: default`; CLAUDE.md corrected and the `make CC=` gap recorded. | The 2026-11-07 failure was `defaultMode: auto` skipping the ask rule. Confirm the new setting in a later session without `--permission-mode`. |
+| 2026-11-08 | Spec 004 gate 3 passed and T1-T6 implemented, one commit per task. | Tasks reviewed against the code and fixtures first; four small edits made to `tasks.md`. |
