@@ -1,0 +1,22 @@
+# R2, R3 (spec 004 T2): mark existing Retail customer 2008 (Greenway Taxis) as fleet.
+# Run 1: mark 2008 (Y); list shows Fleet; mark again says already fleet, no change.
+# Run 2 (after ---): list again, to show the type was saved to customers.dat (persisted).
+# Expected data change: customers.dat differs from the fixture only in 2008's type (R -> F).
+2
+4
+2008
+Y
+
+1
+
+4
+2008
+
+0
+0
+---
+2
+1
+
+0
+0

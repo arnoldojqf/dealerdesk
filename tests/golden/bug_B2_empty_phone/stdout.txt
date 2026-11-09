@@ -1,0 +1,151 @@
+=== run 1 ===
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  1. List customers
+  2. Add customer
+  3. Find customer
+  4. Mark customer as fleet
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 Add Customer
+==============================================================
+
+  Name   :   Phone  :   Email  :   Trade customer (Y/N)? 
+  Customer 2009 added.
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  1. List customers
+  2. Add customer
+  3. Find customer
+  4. Mark customer as fleet
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.
+
+=== run 2 ===
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  1. List customers
+  2. Add customer
+  3. Find customer
+  4. Mark customer as fleet
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  ID    NAME                       PHONE          EMAIL                        TYPE
+  -----------------------------------------------------------------------------------
+  2001  Sarah Whitfield            07700 900412   s.whitfield@example.com      Retail
+  2002  Marlow Motors Ltd          01632 960118   buying@marlowmotors.example  Trade
+  2003  David Okafor               07700 900877   dokafor@example.net          Retail
+  2004  Hannah Price               07700 900233   hannah.price@example.org     Retail
+  2005  A1 Car Sales               01632 960455   trade@a1cars.example         Trade
+  2006  Tom Brennan                07700 900650   tbrennan@example.com         Retail
+  2007  Priya Nair                 07700 900931   priya.nair@example.net       Retail
+  2008  Greenway Taxis             01632 960702   fleet@greenwaytaxis.example  Retail
+  2009  NoPhone                    x@y.example    T                            Retail
+
+  9 customer(s)
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Customers
+==============================================================
+
+  1. List customers
+  2. Add customer
+  3. Find customer
+  4. Mark customer as fleet
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Quote
+==============================================================
+
+  Vehicle ID  :   Customer ID :   Discount %  :   Trade-in    : 
+  QUOTATION (valid 7 days)
+  ----------------------------------------------
+  Customer : NoPhone (Retail)
+  Vehicle  : KX21 BUY Kia Sportage 1.6 GDi 3
+  ----------------------------------------------
+  List price                   25495.00
+  Net price                    25495.00
+  Delivery                       150.00
+  VAT 20%                       5129.00
+  Registration fee                55.00
+  ==============================================
+  TOTAL                        30829.00
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.
+

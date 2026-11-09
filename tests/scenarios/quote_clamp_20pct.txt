@@ -1,0 +1,8 @@
+# R9: salesman discount above 15 is clamped to 15 (no PIN; see B3).
+3
+1008
+2003
+20
+0
+
+0

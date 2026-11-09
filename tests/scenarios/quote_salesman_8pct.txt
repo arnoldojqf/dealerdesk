@@ -1,0 +1,8 @@
+# R9: 8% salesman discount for Greenway Taxis (the hand-given fleet discount of invoice 50232).
+3
+1008
+2008
+8
+0
+
+0

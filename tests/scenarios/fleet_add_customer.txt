@@ -1,0 +1,23 @@
+# R1 (spec 004 T3): Add Customer asks "Fleet customer (Y/N)?" after a No to Trade.
+# Run 1: add Fleet Hire Ltd as Trade N, Fleet Y; list shows type Fleet.
+# Run 2 (after ---): find it by name after a reload, to show the type was saved.
+# Expected data change: customers.dat gains a line for 2009 ending |F; next_ids.dat customer=2010.
+2
+2
+Fleet Hire Ltd
+01632 960999
+hire@fleethire.example
+N
+Y
+
+1
+
+0
+0
+---
+2
+3
+Fleet Hire
+
+0
+0

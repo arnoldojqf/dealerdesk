@@ -1,0 +1,45 @@
+# R10, R12 (spec 004 T8, added after /verify 004): a stored fleet invoice survives a LATER save.
+# Run 1: mark Greenway Taxis (2008) fleet, sell 1002 at 0%, no trade-in (Confirm sale: Y) -> invoice 50233.
+# Run 2 (after ---): sell 1008 to retail customer 2003 at 0%, no trade-in -> invoice 50234. This run LOADS the
+#   12-field line for 50233 and SAVES all five invoices again.
+# Run 3 (after ---): view 50233 and 50234, then list invoices.
+# Hand figures: 50233 as fleet_sell_no_salesman: fleet 439.80, net 10555.20, VAT 2141.04, total 12901.24.
+#   50234 as sell_retail_view: net 25495.00, VAT 5129.00, total 30829.00.
+# invoices.dat ends with these two lines (50233 must STILL end |439.80 after the second save):
+#   50233|<date>|1002|2008|10995.00|439.80|10555.20|2141.04|205.00|0.00|12901.24|439.80
+#   50234|<date>|1008|2003|25495.00|0.00|25495.00|5129.00|205.00|0.00|30829.00
+2
+4
+2008
+Y
+
+0
+4
+1002
+2008
+0
+0
+Y
+
+0
+---
+4
+1008
+2003
+0
+0
+Y
+
+0
+---
+5
+2
+50233
+
+2
+50234
+
+1
+
+0
+0

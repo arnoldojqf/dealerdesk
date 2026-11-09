@@ -1,0 +1,24 @@
+# R3 (spec 004 T4): contrast. Vehicle 1002, 0%, no trade-in, two quotes in one run.
+# Quote 1, Trade customer Marlow Motors (2002): trade 10% of 10995.00 = 1099.50; no Fleet line;
+#   net 9895.50; VAT 20% of 10045.50 = 2009.10; total 9895.50 + 150.00 + 2009.10 + 55.00 = 12109.60.
+# Then mark 2008 fleet. Quote 2, Fleet customer 2008: fleet 439.80, no Trade line, total 12901.24
+#   (figures in fleet_quote_1002).
+3
+1002
+2002
+0
+0
+
+2
+4
+2008
+Y
+
+0
+3
+1002
+2008
+0
+0
+
+0

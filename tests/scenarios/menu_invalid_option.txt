@@ -1,0 +1,4 @@
+# R12: an invalid main-menu option.
+7
+
+0

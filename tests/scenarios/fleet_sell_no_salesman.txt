@@ -1,0 +1,32 @@
+# R10, R12 (spec 004 T5): mark Greenway Taxis (2008) fleet, sell 1002 at 0% with no trade-in (Confirm sale: Y),
+# view invoice 50233, then reload (---) and view it again.
+# Hand figures: as the 0% quote in fleet_quote_1002: fleet 439.80, net 10555.20, VAT 2141.04, total 12901.24.
+# invoices.dat gains 50233|<date>|1002|2008|10995.00|439.80|10555.20|2141.04|205.00|0.00|12901.24|439.80
+# The view shows "Fleet discount -439.80" and NO "Discounts" line (nothing besides the fleet discount).
+# Run 2 shows the same view, so the 12th field survives a reload.
+2
+4
+2008
+Y
+
+0
+4
+1002
+2008
+0
+0
+Y
+
+5
+2
+50233
+
+0
+0
+---
+5
+2
+50233
+
+0
+0

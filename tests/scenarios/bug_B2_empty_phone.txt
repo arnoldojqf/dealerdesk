@@ -1,0 +1,24 @@
+# R8, R13: bug B2. Run 1 adds a TRADE customer with an empty phone; the saved line is
+# fine but strtok collapses the empty field on reload. Run 2 lists customers (shifted
+# columns, type Retail) and quotes vehicle 1008 for customer 2009: no trade discount.
+2
+2
+NoPhone
+
+x@y.example
+Y
+
+0
+0
+---
+2
+1
+
+0
+3
+1008
+2009
+0
+0
+
+0

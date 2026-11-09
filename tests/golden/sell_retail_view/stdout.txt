@@ -1,0 +1,111 @@
+=== run 1 ===
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 Sell Vehicle
+==============================================================
+
+  Vehicle ID  :   Customer ID :   Discount %  :   Trade-in    : 
+  INVOICE PREVIEW
+  ----------------------------------------------
+  Customer : David Okafor (Retail)
+  Vehicle  : KX21 BUY Kia Sportage 1.6 GDi 3
+  ----------------------------------------------
+  List price                   25495.00
+  Net price                    25495.00
+  Delivery                       150.00
+  VAT 20%                       5129.00
+  Registration fee                55.00
+  ==============================================
+  TOTAL                        30829.00
+
+  Confirm sale (Y/N)? 
+  Invoice 50233 created.
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.
+
+=== run 2 ===
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                     Invoices
+==============================================================
+
+  1. List invoices
+  2. View invoice
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 View Invoice
+==============================================================
+
+  Invoice no : 
+  INVOICE 50233    Date: <TODAY>
+  ----------------------------------------------
+  Customer : David Okafor
+  Vehicle  : KX21 BUY Kia Sportage 1.6 GDi 3
+  ----------------------------------------------
+  List price                   25495.00
+  Discounts                       -0.00
+  Net price                    25495.00
+  Fees                           205.00
+  VAT                           5129.00
+  ==============================================
+  TOTAL                        30829.00
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                     Invoices
+==============================================================
+
+  1. List invoices
+  2. View invoice
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.
+

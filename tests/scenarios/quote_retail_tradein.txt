@@ -1,0 +1,8 @@
+# R9: retail quote with a 3000.00 trade-in.
+3
+1008
+2003
+0
+3000
+
+0

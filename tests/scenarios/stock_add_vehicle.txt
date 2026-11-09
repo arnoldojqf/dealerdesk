@@ -1,0 +1,15 @@
+# R7: add a vehicle with a lower-case plate (not normalised, see B5), then list stock.
+1
+3
+ab12 cde
+Honda
+Civic
+2020
+15000
+9000
+12000
+
+1
+
+0
+0

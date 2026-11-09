@@ -1,0 +1,18 @@
+# R2, R3 (spec 004 T2): the refusals; no data file may change.
+# Trade customer 2002 is refused; unknown 9999 gives "Customer not found.";
+# Retail customer 2001 answered N gives "Cancelled." and stays Retail.
+2
+4
+2002
+
+4
+9999
+
+4
+2001
+N
+
+1
+
+0
+0

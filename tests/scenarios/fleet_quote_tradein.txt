@@ -1,0 +1,15 @@
+# R9 (spec 004 T4): trade-in is subtracted as entered. Mark 2008 fleet, quote 1002, 0%, trade-in 2000.00.
+# Hand figures: as fleet_quote_1002 (total 12901.24) less 2000.00 = 10901.24.
+2
+4
+2008
+Y
+
+0
+3
+1002
+2008
+0
+2000
+
+0

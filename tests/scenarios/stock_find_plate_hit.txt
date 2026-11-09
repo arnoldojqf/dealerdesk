@@ -1,0 +1,7 @@
+# R7: find by plate, exact match.
+1
+4
+KX21 BUY
+
+0
+0

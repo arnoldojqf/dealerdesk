@@ -1,0 +1,7 @@
+# R11: existing invoice 50230 (retail, trade-in 1500.00).
+5
+2
+50230
+
+0
+0

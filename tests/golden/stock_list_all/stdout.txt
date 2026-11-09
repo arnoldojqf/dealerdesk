@@ -1,0 +1,71 @@
+<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Stock
+==============================================================
+
+  1. List stock
+  2. List all vehicles (incl. sold)
+  3. Add vehicle
+  4. Find by plate
+  5. Change price
+  6. Reserve / release vehicle
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                 All Vehicles
+==============================================================
+
+  ID    PLATE      MAKE         MODEL                  YEAR    MILES      PRICE  STATUS
+  ----------------------------------------------------------------------------------
+  1001  LK19 XRT   Ford         Fiesta 1.0 EcoBoost Ze 2019    38210   10495.00  SOLD
+  1002  yf20 hbn   Vauxhall     Corsa 1.2 SE           2020    21455   10995.00  IN STOCK
+  1003  BD68 KWP   Volkswagen   Golf 1.5 TSI Life      2018    52300   15995.00  IN STOCK
+  1004  WR21 OLC   Toyota       Yaris 1.5 Hybrid Icon  2021    14890   16750.00  IN STOCK
+  1005  ma17 zzt   BMW          320d M Sport           2017    67400   15450.00  IN STOCK
+  1006  SN70 FGE   Nissan       Qashqai 1.3 DIG-T N-Co 2020    29870   18995.00  RESERVED
+  1007  GJ19 VLA   Skoda        Octavia Estate 2.0 TDI 2019    71200   12750.00  IN STOCK
+  1008  KX21 BUY   Kia          Sportage 1.6 GDi 3     2021     9850   25495.00  IN STOCK
+  1009  DE18 PQR   Peugeot      308 1.2 PureTech Allur 2018    44100    9295.00  SOLD
+  1010  hn69 aab   Renault      Clio 1.0 TCe Iconic    2019    33020    9750.00  IN STOCK
+  1011  PO21 MMV   Hyundai      Tucson 1.6 T-GDi SE    2021    18760   22995.00  IN STOCK
+  1012  EF66 TRX   Mercedes-Benz C220d AMG Line         2016    88400   13495.00  SOLD
+
+  12 vehicle(s)
+
+  Press ENTER to continue...<ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                        Stock
+==============================================================
+
+  1. List stock
+  2. List all vehicles (incl. sold)
+  3. Add vehicle
+  4. Find by plate
+  5. Change price
+  6. Reserve / release vehicle
+  0. Back
+
+  Option: <ESC>[2J<ESC>[H==============================================================
+  DEALERDESK v2.3                                    Main Menu
+==============================================================
+
+  1. Stock
+  2. Customers
+  3. Quote
+  4. Sell vehicle
+  5. Invoices
+  9. Help
+  0. Exit
+
+  Option: 
+  Goodbye.

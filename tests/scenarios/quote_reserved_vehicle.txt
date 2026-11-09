@@ -1,0 +1,8 @@
+# R9: a RESERVED vehicle (1006) can still be quoted; only sold ones are refused.
+3
+1006
+2003
+0
+0
+
+0

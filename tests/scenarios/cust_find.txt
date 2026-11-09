@@ -1,0 +1,7 @@
+# R8: find customer, case-sensitive substring "ar" (Sarah, Marlow, A1 Car Sales).
+2
+3
+ar
+
+0
+0

@@ -1,0 +1,4 @@
+# R12: help screen (its text is wrong in places, see B1, B3, B5; recorded as is).
+9
+
+0

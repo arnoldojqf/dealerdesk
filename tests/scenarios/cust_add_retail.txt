@@ -1,0 +1,14 @@
+# R8: add a retail customer (answer N to Trade), then list.
+# Spec 004 T3 (R1): the second N answers the new "Fleet customer (Y/N)?" prompt.
+2
+2
+Jane Doe
+07700 900111
+jane@example.com
+N
+N
+
+1
+
+0
+0
