@@ -1,6 +1,6 @@
 # Spec 003: agent setup: tasks
 
-**Status:** implemented with open items (T6 c and d, live behaviour of the commands; see traceability). Each task is its own commit, message `spec 003 Tn: ...`. No product files change. The check script is written first and fails until the files exist.
+**Status:** implemented (T6 a-d and T6e shown live; see traceability). Each task is its own commit, message `spec 003 Tn: ...`. No product files change. The check script is written first and fails until the files exist.
 
 - [x] **T1.** Write `scripts/check-agent-setup.py` and `make check-agent`, with the checks for R1-R9. Run it: it must fail on every missing file (tests first). Serves R9.
 - [x] **T2.** `.claude/settings.json` (allow, ask, deny, hook wiring), `.claude/hooks/rebuild-on-c-edit.sh`, `.gitignore` line. Serves R2-R6.
@@ -26,7 +26,7 @@
 | R4 | `make check-agent` (all ask rules present) | rules present: pass. **Enforcement: shown live 2026-11-08 in default mode** (T6 d: prompt appeared, No left the files untouched, Yes rewrote identical bytes). It failed on 2026-11-07 under `defaultMode: auto`, which skips ask rules. The project settings now set `defaultMode: default`; a later session without `--permission-mode` should confirm that |
 | R5 | `make check-agent` (all allow rules present) | pass (allow rule for the harness narrowed on 2026-11-07, see change log) |
 | R6 | `make check-agent` runs the hook on clean, broken, warning and non-C input in a temp copy | script behaviour: pass. **Live firing: shown** 2026-11-07 (T6 c: exit 2 with the compiler error from the main checkout and from a worktree; with the main checkout clean, the worktree error was still reported) |
-| R7 | `make check-agent` (files, description, argument-hint) | form: pass. **Behaviour: manual, pending** (used for the first time on spec 004) |
+| R7 | `make check-agent` (files, description, argument-hint) | form: pass. **Behaviour: shown in use** on spec 004 (`/spec` drafted the three gates, `/implement` produced T1-T6 with one commit per task, `/verify 004` ran the fresh-context reviewer and saved `specs/004-fleet-discount/verify-report.md`) |
 | R8 | `make check-agent` (front matter, read-only tool list); reviewer run in T7 | form: pass. Behaviour: partly (T7 used the A6 fallback because the agent type was not loaded) |
 | R9 | CI run with the `make check-agent` step | pass: CI run 42421288067 (commit 9a9f65a), step "R9 agent setup is well formed" printed `agent setup ok` on gcc and clang |
 | R10 | `specs/002-characterisation-harness/verify-report.md` | pass (report committed, every finding has a disposition) |

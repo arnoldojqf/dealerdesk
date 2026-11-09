@@ -10,7 +10,7 @@ Budget: about 6-8 h in total. Each phase ends with a review and waits for approv
 | 1 | Discovery: CODEMAP, specs/README, minimal CLAUDE.md (no spec) | 45 min | done |
 | 2 | Spec 001: Makefile, .gitignore/.gitattributes, CI build (gcc + clang) | 45 min | done |
 | 3 | Spec 002: golden-master harness, `make test`, ASan in CI | 1 h 45 | done |
-| 4 | Spec 003: agent setup (settings, hook, slash commands, reviewer subagent) | 45 min | built; live proofs a, b, c, d done (d in default mode; auto mode skips ask rules) |
+| 4 | Spec 003: agent setup (settings, hook, slash commands, reviewer subagent) | 45 min | done; live proofs a-d and T6e (Write blocked by the Edit rules) shown; open: confirm the ask rule fires without `--permission-mode` |
 | 5 | Spec 004: TICKET-142, three gates | 2 h 15 | spec 004 done: implemented, verified, pushed, CI green on gcc and clang |
 | 6 | NOTES.md, `make demo`, traceability table, walkthrough dry run | 45 min | not started |
 
@@ -41,3 +41,4 @@ Status values: draft, approved, implemented, verified.
 | 2026-11-08 | Spec 004 pushed to `origin/master`; CI run 42522889926 green on gcc and clang (47 tests each, plain and ASan/UBSan). | Closes the clang item (D10). |
 | 2026-11-08 | Spec index: 002 set to verified (its `/verify` report and fixes exist); 001 reworded to say it was checked by hand only. | The rows still said "verify pending" after the 002 review had been run and fixed. 001 has no independent review, so it is not marked verified. |
 | 2026-11-09 | Spec 003: dead `Write(...)` deny rules removed from the spec and checker; T6e (live Write proof) added. | Claude Code 2.1.319 warns that `Write(path)` rules never match; `Edit(path)` covers all file-editing tools. |
+| 2026-11-09 | Spec 003 status line and R7 row updated (T6 and T6e closed; commands used on spec 004). Ask-rule follow-up not closed: a background session ran `golden.py --update cust_list` through the Bash tool with no visible denial and no diff, but the agent cannot see whether a prompt appeared or which permission mode applies. | Needs the owner to run it once in an interactive session started without `--permission-mode` and report whether a prompt shows. |
