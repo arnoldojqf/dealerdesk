@@ -1,6 +1,6 @@
 This standard disclaimer states that the work is entirely fictional and any resemblance to real people, places, or events is coincidental.
 
-DEALERDESK v2.1
+DEALERDESK v2.3
 ===============
 
 Dealer management for the showroom: stock, customers, quotes and invoices.
@@ -36,7 +36,8 @@ RUN
 
     ./dealerdesk
 
-Data files are read from C:\DEALERDESK\DATA
+Data files are read from the data/ folder, relative to the directory you run
+the program from (so run it from the repository root):
 
     stock.dat       vehicles
     customers.dat   customers
@@ -54,19 +55,24 @@ MENU
     3. Quote
     4. Sell vehicle
     5. Invoices
-    6. Reports (monthly sales, margin per vehicle)
+    9. Help
     0. Exit
 
 
 PRICING RULES
 -------------
 
-* VAT (20%) is calculated on the list price. Discounts are then taken off
-  the VAT inclusive price.
-* Trade customers get a 5% trade discount.
-* Salesman discount is up to 10%. Anything above 10% asks for a manager PIN.
-* Delivery (150.00) and first registration (55.00) are added to every sale.
-  Both are VAT exempt.
+* Trade customers get a 10% trade discount, taken off the list price.
+* Fleet customers get a 4% fleet discount, taken off the list price. A
+  customer is either trade or fleet, never both. Mark a customer as fleet
+  under Customers, option 4, or answer Y to "Fleet customer" when adding one.
+* Salesman discount is a percentage of the list price after the trade or
+  fleet discount. It is limited to 0-15%: a higher figure is capped at 15%.
+  There is no manager PIN.
+* Net price = list price minus the discounts above.
+* Delivery (150.00) is added to every sale. VAT (20%) is calculated on the
+  net price plus delivery.
+* First registration (55.00) is added to every sale and has no VAT.
 * Trade-in value is taken off the final total.
 
 

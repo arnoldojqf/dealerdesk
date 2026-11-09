@@ -10,7 +10,7 @@ The ticket is small. The risk is changing a program with no tests, so I made cha
 4. **TICKET-142 (spec 004).** Three approval gates (requirements, design, tasks), then eight tasks, tests first, one commit each.
 5. **Delivery aids.** `make demo` shows a fleet quote and a fleet sale on a temp copy of the fixtures (D13).
 
-The code is the truth: the README and help text disagree with it in places. Those are recorded as B1-B10 in `docs/CODEMAP.md` and left unfixed (rule 1, D8).
+The code is the truth: the help text and some comments disagree with it in places. Those are recorded as B1-B10 in `docs/CODEMAP.md` and left unfixed (rule 1, D8). The README had the same errors; the owner asked for it to be corrected afterwards (D15).
 
 ## Ticket against evidence
 

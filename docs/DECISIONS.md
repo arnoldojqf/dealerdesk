@@ -8,6 +8,9 @@ No file-format change. An old binary writes the `%c` back unchanged, so rolling 
 ## D8. Existing bugs are recorded, not fixed
 Behaviour is preserved, bugs included (B-IDs in CODEMAP). Fixing is a separate decision for the user.
 
+## D15. README corrected against the code (2026-11-09)
+The owner asked for the README to be fixed. This supersedes D8 and spec 001 A2 for `README.md` only: version, data path, menu, and the pricing rules (B1, B3, B4, B6, B7), plus the fleet discount (TICKET-142). The in-app help screen (pinned by the `help_screen` golden) and the `calc.c` and `dbfile.c` comments are still wrong and stay as they are. Docs only: no C, no golden changes, so no spec.
+
 ## D9. Harness uses the Python standard library only
 No pip step in CI. The date is masked as `<TODAY>`. The ANSI escape byte is stored as the text `<ESC>` (changed from "raw bytes" during spec 002: raw escapes clear the terminal when a golden is `cat`ed and make diffs unreadable).
 

@@ -1,6 +1,6 @@
 # DealerDesk: agent instructions
 
-Menu-driven C terminal app for car dealerships, in production for years. Work happens in two parts: make changes safe to deliver (specs 001-003, done), then ship TICKET-142, a fleet discount (`TICKET-142.md`, spec 004). The brief is `BRIEF.md`. **The code is the truth**: README and the in-app help are wrong in places (`docs/CODEMAP.md`, B1-B10).
+Menu-driven C terminal app for car dealerships, in production for years. Work happens in two parts: make changes safe to deliver (specs 001-003, done), then ship TICKET-142, a fleet discount (`TICKET-142.md`, spec 004). The brief is `BRIEF.md`. **The code is the truth**: the in-app help and some code comments are wrong in places (`docs/CODEMAP.md`, B1-B10); the README was corrected under D15.
 
 ## Commands
 Run from the repository root. The program reads and writes `data/`, so never run it for testing; use the harness.

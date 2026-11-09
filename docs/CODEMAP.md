@@ -66,13 +66,13 @@ Pinned by a golden today: B1, B3, B5 (`help_screen`), B2 (`bug_B2_empty_phone` f
 
 | ID | What | Where |
 |---|---|---|
-| B1 | README and help say trade discount is 5%; code gives 10% | `README.md:66`, `main.c:500`, `calc.c:29` |
+| B1 | README (fixed, D15) and help say trade discount is 5%; code gives 10% | `README.md:66`, `main.c:500`, `calc.c:29` |
 | B2 | `strtok` collapses empty fields. An empty phone shifts email into phone and type into email; a Trade customer reloads as Retail, and the next save makes it permanent. Reproduced on a scratch copy. Since spec 004 the same happens to a Fleet customer (`F` is shifted into the email column and the type shows Retail). | `dbfile.c:78-89` |
-| B3 | README and help describe a manager PIN above 10%; code has no PIN and clamps at 15% | `README.md:67`, `main.c:501`, `calc.c:33` |
-| B4 | README says VAT is on list price and delivery is VAT-exempt; code charges VAT on net + delivery | `README.md:64,68`, `calc.c:40` |
+| B3 | README (fixed, D15) and help describe a manager PIN above 10%; code has no PIN and clamps at 15% | `README.md:67`, `main.c:501`, `calc.c:33` |
+| B4 | README (fixed, D15) said VAT is on list price and delivery is VAT-exempt; code charges VAT on net + delivery | `README.md:64,68`, `calc.c:40` |
 | B5 | Help says plates are upper-cased automatically; that was removed | `main.c:5,499` |
-| B6 | README build line names `report.c`, omits `calc.c` and `-lm`; says v2.1 (header v2.3); data path `C:\DEALERDESK\DATA` | `README.md:29,39`, `screen.c:18` |
-| B7 | Main menu has no option 6 although README lists Reports; reports were removed | `README.md:57`, commit `399a544` |
+| B6 | README build line (fixed, spec 001), version and data path (fixed, D15) were wrong; `dbfile.c:4` comment still says `C:\DEALERDESK\DATA` | `README.md:29,39`, `screen.c:18` |
+| B7 | Main menu has no option 6 although README listed Reports (README fixed, D15); reports were removed | `README.md:57`, commit `399a544` |
 | B8 | Negative or unlimited trade-in is accepted | `main.c:324`, `calc.c:42` |
 | B9 | `calc.c` header comment says "VAT 20% on list price" | `calc.c:10` |
 | B10 | An invoice with no discount prints `Discounts -0.00` (negative zero from `-p->disc`). Pinned by `sell_retail_view`. | `main.c:461` |
@@ -93,5 +93,5 @@ Line numbers are current as of the T6 commit (the rest of this file is baseline)
 | Invoice view: "Fleet discount" line, "Discounts" only when something remains (fleet invoices only; non-fleet unchanged, including B10) | `main.c:503-509` |
 | Invoice load of the optional 12th field; save writes it only when above 0 | `dbfile.c:136`, `216-217` |
 
-- Not changed on purpose: the `calc.c` header comment (already wrong, B1, B3, B4, B9), the README and the help screen (Q4), un-marking a fleet customer (Q3).
+- Not changed on purpose: the `calc.c` header comment (already wrong, B1, B3, B4, B9), the help screen (Q4), un-marking a fleet customer (Q3).
 - Scenarios: `fleet_mark_*`, `fleet_add_customer`, `fleet_quote_*`, `fleet_sell_*`, `fleet_B2_empty_phone`.
