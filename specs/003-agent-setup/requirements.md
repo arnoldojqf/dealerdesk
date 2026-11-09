@@ -15,7 +15,7 @@ The agent currently follows a minimal `CLAUDE.md` and rules that live only in th
 ## Acceptance criteria
 - **R1 (instructions).** `CLAUDE.md` states the build, warn, asan, test, test-asan, test-selfcheck and reset commands, the layout, the spec workflow and the hard rules. Every `make` target it names exists, and every file path it names exists.
 - **R2 (settings valid).** `.claude/settings.json` is valid JSON with `permissions.allow`, `permissions.ask`, `permissions.deny` and a `hooks.PostToolUse` entry.
-- **R3 (blocked).** The deny list blocks: `git push`, `gh pr`, `gh repo`, changes to remotes (`git remote add|set-url|remove|rename`), `rm -rf`, and Edit/Write of `data/**`, `tests/golden/**` and `tests/fixtures/**`.
+- **R3 (blocked).** The deny list blocks: `git push`, `gh pr`, `gh repo`, changes to remotes (`git remote add|set-url|remove|rename`), `rm -rf`, and Edit/Write of `data/**`, `tests/golden/**` and `tests/fixtures/**` (enforced by `Edit(path)` rules, which cover every file-editing tool, Write included; a `Write(path)` rule never matches).
 - **R4 (confirmed).** The ask list requires confirmation for `python3 tests/golden.py --update`, `git tag`, `git checkout`, `git reset` and `gh api`.
 - **R5 (allowed).** The allow list lets the agent run `make`, the test harness without `--update`, read-only git (`status`, `diff`, `log`, `show`, `remote -v`), `git add`, `git commit`, and `gh run` reads, so routine work does not prompt.
 - **R6 (build hook).** When the agent edits or writes a `.c` or `.h` file, a hook runs `make warn`. If the build fails or prints any compiler warning or error, the hook reports it to the agent (exit code 2 with the compiler output). If the build is clean, or the file is not `.c` or `.h`, it is silent and exits 0.
@@ -42,4 +42,4 @@ The agent currently follows a minimal `CLAUDE.md` and rules that live only in th
 - **A7.** Deny and ask rules are proven by attempting a harmless blocked action in this session (manual), because the permission engine is not available to the script.
 
 ## Change log
-(none yet)
+- 2026-11-09: R3 wording: file protection is expressed as `Edit(path)` rules only. Claude Code 2.1.319 warned at startup `Deny rule Write(data/**) never matches · use Edit(data/**)` (same for `tests/golden/**`, `tests/fixtures/**`). The three `Write(...)` deny rules were dead text. See tasks T6 (e).

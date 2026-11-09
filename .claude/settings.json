@@ -35,11 +35,8 @@
       "Bash(git remote rename:*)",
       "Bash(rm -rf:*)",
       "Edit(data/**)",
-      "Write(data/**)",
       "Edit(tests/golden/**)",
-      "Write(tests/golden/**)",
-      "Edit(tests/fixtures/**)",
-      "Write(tests/fixtures/**)"
+      "Edit(tests/fixtures/**)"
     ]
   },
   "hooks": {

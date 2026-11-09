@@ -81,9 +81,8 @@ def check_settings():
         "R3": ("deny", ["Bash(git push:*)", "Bash(gh pr:*)", "Bash(gh repo:*)",
                         "Bash(git remote add:*)", "Bash(git remote set-url:*)",
                         "Bash(git remote remove:*)", "Bash(git remote rename:*)",
-                        "Bash(rm -rf:*)", "Edit(data/**)", "Write(data/**)",
-                        "Edit(tests/golden/**)", "Write(tests/golden/**)",
-                        "Edit(tests/fixtures/**)", "Write(tests/fixtures/**)"]),
+                        "Bash(rm -rf:*)", "Edit(data/**)",
+                        "Edit(tests/golden/**)", "Edit(tests/fixtures/**)"]),
         "R4": ("ask", ["Bash(python3 tests/golden.py --update:*)", "Bash(git tag:*)",
                        "Bash(git checkout:*)", "Bash(git reset:*)", "Bash(gh api:*)"]),
         "R5": ("allow", ["Bash(make:*)", "Bash(python3 tests/golden.py)",
@@ -95,6 +94,12 @@ def check_settings():
     for rid, (key, rules) in need.items():
         missing = [r for r in rules if r not in perm.get(key, [])]
         check(rid, not missing, "%s list lacks: %s" % (key, ", ".join(missing)))
+    # File rules are looked up as Edit(path) for every file-editing tool, so a
+    # Write( or MultiEdit( rule never matches (Claude Code warns at startup).
+    dead = [r for k in ("allow", "ask", "deny") for r in perm.get(k, [])
+            if r.startswith(("Write(", "MultiEdit("))]
+    check("R3 file rules", not dead,
+          "file rules must use Edit(path); Write(path) never matches: %s" % ", ".join(dead))
     # --update must not be allowed by a broader allow rule's text
     wired = any("rebuild-on-c-edit.sh" in h.get("command", "")
                 for e in hooks for h in e.get("hooks", []))

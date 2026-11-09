@@ -40,3 +40,4 @@ Status values: draft, approved, implemented, verified.
 | 2026-11-08 | `/verify 004` run; T8 added (`fleet_sell_then_sell`), report saved. | The review found no failing criterion; one test gap (a stored fleet invoice saved again) and wording on R13, R11, R14. |
 | 2026-11-08 | Spec 004 pushed to `origin/master`; CI run 42522889926 green on gcc and clang (47 tests each, plain and ASan/UBSan). | Closes the clang item (D10). |
 | 2026-11-08 | Spec index: 002 set to verified (its `/verify` report and fixes exist); 001 reworded to say it was checked by hand only. | The rows still said "verify pending" after the 002 review had been run and fixed. 001 has no independent review, so it is not marked verified. |
+| 2026-11-09 | Spec 003: dead `Write(...)` deny rules removed from the spec and checker; T6e (live Write proof) added. | Claude Code 2.1.319 warns that `Write(path)` rules never match; `Edit(path)` covers all file-editing tools. |

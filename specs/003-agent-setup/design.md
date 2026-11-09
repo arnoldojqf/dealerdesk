@@ -26,11 +26,10 @@ permissions.ask:   Bash(python3 tests/golden.py --update:*), Bash(git tag:*), Ba
   Bash(git reset:*), Bash(gh api:*)
 permissions.deny:  Bash(git push:*), Bash(gh pr:*), Bash(gh repo:*), Bash(git remote add:*),
   Bash(git remote set-url:*), Bash(git remote remove:*), Bash(git remote rename:*), Bash(rm -rf:*),
-  Edit(data/**), Write(data/**), Edit(tests/golden/**), Write(tests/golden/**),
-  Edit(tests/fixtures/**), Write(tests/fixtures/**)
+  Edit(data/**), Edit(tests/golden/**), Edit(tests/fixtures/**)
 hooks.PostToolUse: matcher "Edit|Write|MultiEdit" -> .claude/hooks/rebuild-on-c-edit.sh
 ```
-Deny beats allow, so `git push` stays blocked even if a broader rule appears later. The golden and fixture paths are denied for Edit/Write so approved output can only change through `golden.py --update`, which asks first. `--update` is already refused when `CI` is set (spec 002 R5).
+Deny beats allow, so `git push` stays blocked even if a broader rule appears later. The golden and fixture paths are denied through `Edit(path)` rules (Claude Code applies them to every file-editing tool, Write included, and never looks up `Write(path)` rules) so approved output can only change through `golden.py --update`, which asks first. `--update` is already refused when `CI` is set (spec 002 R5).
 `git commit` is allowed because the workflow commits after every task; the rule "explain C diffs line by line before committing" lives in `CLAUDE.md` and in `/implement`, because a permission rule cannot express it.
 
 ### The hook
@@ -71,4 +70,4 @@ None. Nothing under the program or its data changes.
 - **Hook edits could break the agent's own work** if `make warn` fails for an unrelated reason (for example a half-finished edit across two files). The message says which file triggered it; a failing hook does not block the edit, it only reports.
 
 ## Change log
-(none yet)
+- 2026-11-09: removed the three `Write(...)` deny rules from the design. Claude Code 2.1.319 warned at startup `Deny rule Write(data/**) never matches · use Edit(data/**)` (same for `tests/golden/**`, `tests/fixtures/**`). `make check-agent` now fails if any `Write(` or `MultiEdit(` rule appears.

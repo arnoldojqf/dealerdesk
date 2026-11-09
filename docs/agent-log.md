@@ -79,3 +79,9 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: the fresh-context `spec-reviewer` (R13 "partly covered"); the round-trip gap I found while checking its note against the design.
 - Fix: T8 `fleet_sell_then_sell`, shown to fail on a throwaway saver that drops the 12th field; the R13, R11 and R14 rows now say what the evidence is.
 - Lesson: when a table says "pass", say whether the test was written for that criterion. A feature that adds an optional field needs a load, save, load round trip, not only a load and a view.
+
+## 2026-11-09: three `Write(...)` deny rules never matched (spec 003 T2, found at session start)
+- What: `.claude/settings.json` listed `Write(data/**)`, `Write(tests/golden/**)` and `Write(tests/fixtures/**)`. Claude Code 2.1.319 warned `Deny rule Write(...) never matches · use Edit(...)`. File rules are looked up as `Edit(path)` for every file-editing tool, so the Write entries did nothing, and the checker required them.
+- Caught by: the startup warning, not by any test. T6 (b) proved only an Edit under `tests/golden/`; the Write path was assumed.
+- Fix: checker changed first (new R3 check rejecting `Write(`/`MultiEdit(` rules, seen failing), settings edit by the owner, spec 003 wording and T6e (live Write proof) added.
+- Lesson: prove each tool path a rule claims to block, and read startup warnings as findings.
