@@ -15,7 +15,7 @@ There is no reliable build and no CI. The only build instruction is a README lin
 - **R1.** Given a clean checkout, when I run `make`, then `./dealerdesk` is built with the command `gcc -o dealerdesk <all .c files> -lm` and is byte-identical to the binary from the brief's command `gcc -o dealerdesk *.c -lm`.
 - **R2.** When I run `make warn`, the sources compile with `-Wall -Wextra`, warnings are printed, and the exit status is 0 even if there are warnings (warnings are not yet errors).
 - **R3.** When I run `make asan`, a binary `dealerdesk-asan` is built with AddressSanitizer and UndefinedBehaviorSanitizer.
-- **R4.** When I run `make test`, it exits 0 and says there are no tests yet. (Real tests arrive with spec 002.)
+- **R4.** *(Superseded by spec 002 T1, 2026-11-07; see the change log.)* When I run `make test`, it exits 0 and says there are no tests yet. (Real tests arrive with spec 002.)
 - **R5.** When I run `make clean`, all built binaries are removed and nothing else (in particular nothing under `data/`).
 - **R6.** When I run `make CC=clang`, the same targets work with clang.
 - **R7.** Building changes no tracked file: `git status --porcelain` is empty after `make`, `make warn`, `make asan` and `make clean`, and `.c`, `.h` and `data/` are untouched by this spec.
@@ -35,4 +35,5 @@ There is no reliable build and no CI. The only build instruction is a README lin
 - A4. `make test` is a placeholder that CI does not call yet.
 
 ## Change log
-(none yet)
+- 2026-11-07: R4 superseded by spec 002 T1: `make test` now runs the golden-master suite instead of printing a placeholder. Reason: that is what the placeholder was for. Its coverage is now spec 002 R15/R16. (Also recorded in design.md.)
+- 2026-11-09: after `/verify 001`, CI checks for R2, R3, R5 and R7 strengthened (tasks.md T6). Criteria unchanged.
