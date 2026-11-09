@@ -14,47 +14,55 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: "R1, R6 build with make"
+      - name: "001 R1, R6 build with make"
         run: make CC=${{ matrix.cc }}
 
-      - name: "R2 warnings build (warnings shown, not fatal)"
-        run: make CC=${{ matrix.cc }} warn
+      - name: "001 R2 warnings build (-Wall -Wextra used, warnings shown, not fatal)"
+        run: |
+          make CC=${{ matrix.cc }} warn | tee "$RUNNER_TEMP/warn.log"
+          grep -q -- '-Wall -Wextra' "$RUNNER_TEMP/warn.log"
 
-      - name: "R3 sanitizer build"
-        run: make CC=${{ matrix.cc }} asan
+      - name: "001 R3 sanitizer build (ASan and UBSan linked in)"
+        run: |
+          make CC=${{ matrix.cc }} asan
+          nm dealerdesk-asan | grep -q __asan_init
+          nm dealerdesk-asan | grep -q __ubsan_handle
 
-      - name: "R1 binary identical to the brief's command"
+      - name: "001 R1 binary identical to the brief's command"
         run: |
           ${{ matrix.cc }} -o dealerdesk-raw *.c -lm
           cmp dealerdesk dealerdesk-raw
           rm dealerdesk-raw
 
-      - name: "R15, R16 golden-master tests"
+      - name: "002 R15, R16 golden-master tests"
         run: make CC=${{ matrix.cc }} test
 
-      - name: "R15, R16 golden-master tests under ASan and UBSan"
+      - name: "002 R15, R16 golden-master tests under ASan and UBSan"
         run: make CC=${{ matrix.cc }} test-asan
 
-      - name: "R14, R16 self-check: the suite catches a regression"
+      - name: "002 R14, R16 self-check: the suite catches a regression"
         if: matrix.cc == 'gcc'
         run: make CC=gcc test-selfcheck
 
-      - name: "R9 agent setup is well formed (settings, hook, commands)"
+      - name: "003 R9 agent setup is well formed (settings, hook, commands)"
         run: make check-agent
 
-      - name: "R5 clean removes the binaries"
+      - name: "001 R5 clean removes the binaries and nothing else"
         run: |
           make clean
           ls dealerdesk* 2>/dev/null && exit 1 || true
+          test -z "$(git status --porcelain)"
 
-      - name: "R7, R8 tree is clean after building"
+      - name: "001 R7, R8 tree is clean after building and after clean"
         run: |
           make CC=${{ matrix.cc }}
           make CC=${{ matrix.cc }} warn
           make CC=${{ matrix.cc }} asan
           test -z "$(git status --porcelain)"
+          make clean
+          test -z "$(git status --porcelain)"
 
-      - name: "R9 line endings: renormalize changes nothing"
+      - name: "001 R9 line endings: renormalize changes nothing"
         run: |
           git add --renormalize .
           git diff --cached --quiet
