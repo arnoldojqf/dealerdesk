@@ -31,10 +31,10 @@ There is no reliable build and no CI. The only build instruction is a README lin
 ## Open questions and assumptions
 - A1. `make warn` and `make asan` use their own output names (`dealerdesk-warn`, `dealerdesk-asan`) so they never overwrite the plain build.
 - A2. Only the README build line is fixed. Staff may read the README, and the other errors describe behaviour, so correcting them is a visible change and out of scope (decision D8).
-- A3. Whether `gcc -Wall -Wextra` is warning-free on the baseline was only seen on gcc 15 locally. clang results are unknown until CI runs. Warnings are recorded, not fixed. Rechecked 2026-11-09: warning-free on gcc only; clang is not installed locally, and the CI warn step does not fail on warnings.
+- A3. Whether `gcc -Wall -Wextra` is warning-free on the baseline was only seen on gcc 15 locally. clang results are unknown until CI runs. Warnings are recorded, not fixed. Rechecked 2026-11-09: warning-free on gcc locally, and in CI run 42631838729 (9eaf51f) the `make warn` step printed no warning on gcc or clang (read from `gh run view --log`). Clang is still not installed locally.
 - A4. `make test` is a placeholder that CI does not call yet.
 
 ## Change log
 - 2026-11-07: R4 superseded by spec 002 T1: `make test` now runs the golden-master suite instead of printing a placeholder. Reason: that is what the placeholder was for. Its coverage is now spec 002 R15/R16. (Also recorded in design.md.)
-- 2026-11-09: wording only, after the `/verify 001` rerun: R7 says "this spec's commits" (spec 004 later changed C on purpose), R10 notes the later CI steps, A3 says gcc only. No criterion changed in meaning. Status set to verified.
+- 2026-11-09: wording only, after the `/verify 001` rerun: R7 says "this spec's commits" (spec 004 later changed C on purpose), R10 notes the later CI steps, A3 says gcc only. Later the same day A3 was updated: the CI log shows clang is warning-free too. No criterion changed in meaning. Status set to verified.
 - 2026-11-09: after `/verify 001`, CI checks for R2, R3, R5 and R7 strengthened (tasks.md T6). Criteria unchanged.
