@@ -1,7 +1,7 @@
 # Spec 003: agent setup: requirements
 
 **Review mode:** bundled. `requirements.md`, `design.md` and `tasks.md` are reviewed in one go.
-**Status:** implemented with open items
+**Status:** verified
 
 ## Problem
 The agent currently follows a minimal `CLAUDE.md` and rules that live only in the chat. Nothing stops it from pushing, editing sample data, hand-editing a golden file, or leaving a compiler warning behind. The spec workflow (`specs/README.md`) is followed by hand, and independent review means pasting a prompt. Part 1 of the brief asks for the agent setup to be committed and reusable, and TICKET-142 will be built through it.
@@ -14,7 +14,7 @@ The agent currently follows a minimal `CLAUDE.md` and rules that live only in th
 
 ## Acceptance criteria
 - **R1 (instructions).** `CLAUDE.md` states the build, warn, asan, test, test-asan, test-selfcheck and reset commands, the layout, the spec workflow and the hard rules. Every `make` target it names exists, and every file path it names exists.
-- **R2 (settings valid).** `.claude/settings.json` is valid JSON with `permissions.allow`, `permissions.ask`, `permissions.deny` and a `hooks.PostToolUse` entry.
+- **R2 (settings valid).** `.claude/settings.json` is valid JSON with `permissions.allow`, `permissions.ask`, `permissions.deny` and a `hooks.PostToolUse` entry, and `permissions.defaultMode` is `default` (auto mode skips the ask rules; see the change log).
 - **R3 (blocked).** The deny list blocks: `git push`, `gh pr`, `gh repo`, changes to remotes (`git remote add|set-url|remove|rename`), `rm -rf`, and Edit/Write of `data/**`, `tests/golden/**` and `tests/fixtures/**` (enforced by `Edit(path)` rules, which cover every file-editing tool, Write included; a `Write(path)` rule never matches).
 - **R4 (confirmed).** The ask list requires confirmation for `python3 tests/golden.py --update`, `git tag`, `git checkout`, `git reset` and `gh api`.
 - **R5 (allowed).** The allow list lets the agent run `make`, the test harness without `--update`, read-only git (`status`, `diff`, `log`, `show`, `remote -v`), `git add`, `git commit`, and `gh run` reads, so routine work does not prompt.
@@ -42,4 +42,5 @@ The agent currently follows a minimal `CLAUDE.md` and rules that live only in th
 - **A7.** Deny and ask rules are proven by attempting a harmless blocked action in this session (manual), because the permission engine is not available to the script.
 
 ## Change log
+- 2026-11-09: R2 now also requires `permissions.defaultMode` to be `default`, checked by `make check-agent` (tasks.md T9). Reason: `/verify 003` showed that reverting the setting, which brought the ask rules back in 2026-11-08, would still pass the checker. Status set to verified.
 - 2026-11-09: R3 wording: file protection is expressed as `Edit(path)` rules only. Claude Code 2.1.319 warned at startup `Deny rule Write(data/**) never matches · use Edit(data/**)` (same for `tests/golden/**`, `tests/fixtures/**`). The three `Write(...)` deny rules were dead text. See tasks T6 (e).

@@ -100,6 +100,9 @@ def check_settings():
             if r.startswith(("Write(", "MultiEdit("))]
     check("R3 file rules", not dead,
           "file rules must use Edit(path); Write(path) never matches: %s" % ", ".join(dead))
+    # Auto mode skips the ask rules (spec 003 T6 d), so the project must force default.
+    check("R4 default mode", perm.get("defaultMode") == "default",
+          "permissions.defaultMode must be 'default', not %r" % perm.get("defaultMode"))
     # --update must not be allowed by a broader allow rule's text
     wired = any("rebuild-on-c-edit.sh" in h.get("command", "")
                 for e in hooks for h in e.get("hooks", []))

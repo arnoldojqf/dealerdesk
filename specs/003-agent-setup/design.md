@@ -1,6 +1,6 @@
 # Spec 003: agent setup: design
 
-**Status:** implemented with open items
+**Status:** verified
 
 ## Approach
 Plain files in the repo, in the places Claude Code reads them. One small script checks that they are well formed, so the setup cannot rot unnoticed.
@@ -19,7 +19,9 @@ scripts/check-agent-setup.py        automated check (make check-agent, CI)
 
 ### settings.json
 ```
-permissions.allow: Bash(make:*), Bash(python3 tests/golden.py:*), Bash(python3 scripts/check-agent-setup.py:*),
+permissions.defaultMode: default (auto mode skips the ask rules; T6 d, T9)
+permissions.allow: Bash(make:*), Bash(python3 tests/golden.py), Bash(python3 tests/golden.py --selfcheck),
+  Bash(python3 scripts/check-agent-setup.py:*),
   Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git show:*), Bash(git remote -v), Bash(git add:*),
   Bash(git commit:*), Bash(gh run list:*), Bash(gh run view:*), Bash(ls:*), Bash(grep:*)
 permissions.ask:   Bash(python3 tests/golden.py --update:*), Bash(git tag:*), Bash(git checkout:*),
@@ -45,7 +47,7 @@ Each is a markdown file with front matter (`description`, `argument-hint`) and a
 `spec-reviewer.md`: `tools: Read, Grep, Glob, Bash`, instructions to stay read-only (the deny list also applies). It reads the spec, builds an R-ID to test table by searching tests and scenario headers for each ID, runs `make test` (and `make test-asan` if the spec touches C), runs `git diff baseline --stat` for forbidden changes, and returns a table: criterion, evidence, covered / partly / gap, plus a list of things the spec does not cover that the diff changed. It is told it did not write the code and must not assume the author is right.
 
 ### check-agent-setup.py (Python standard library)
-Checks R1 (every `make X` named in `CLAUDE.md` is a Makefile target; every backticked path exists), R2/R3/R4/R5 (JSON loads; each required rule string is present in the right list), R6 (runs the hook with sample JSON against a temp copy of the repo: a clean `.c` edit exits 0 and prints nothing; a `.c` with a deliberate error exits 2 with output; a `.md` path exits 0 without running make), R7/R8 (files exist; front matter has `description`; `spec-reviewer` lists its tools). Exit non-zero with a clear message on the first failure of each check.
+Checks R1 (every `make X` named in `CLAUDE.md` is a Makefile target; every backticked path exists), R2/R3/R4/R5 (JSON loads; each required rule string is present in the right list), R6 (runs the hook with sample JSON against a temp copy of the repo: a clean `.c` edit exits 0 and prints nothing; a `.c` with a deliberate error exits 2 with output; a `.md` path exits 0 without running make), R7/R8 (files exist; front matter has `description`; `spec-reviewer` lists its tools). Every check runs and prints one line (`ok`, or `FAIL` with the reasons); the exit status is non-zero if any failed. R2 also requires `permissions.defaultMode` to be `default` (T9).
 `make check-agent` runs it; CI gets one step.
 
 ## Code touched
@@ -70,4 +72,5 @@ None. Nothing under the program or its data changes.
 - **Hook edits could break the agent's own work** if `make warn` fails for an unrelated reason (for example a half-finished edit across two files). The message says which file triggered it; a failing hook does not block the edit, it only reports.
 
 ## Change log
+- 2026-11-09: settings sketch brought in line with the file (`defaultMode`, the narrowed harness allow rules from the 2026-11-07 tasks entry) and the checker description corrected (it runs every check; it does not stop at the first failure). Found by `/verify 003`.
 - 2026-11-09: removed the three `Write(...)` deny rules from the design. Claude Code 2.1.319 warned at startup `Deny rule Write(data/**) never matches · use Edit(data/**)` (same for `tests/golden/**`, `tests/fixtures/**`). `make check-agent` now fails if any `Write(` or `MultiEdit(` rule appears.
