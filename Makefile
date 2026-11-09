@@ -3,7 +3,7 @@
 CC  = gcc
 SRC = $(wildcard *.c)
 
-.PHONY: all warn asan test test-asan test-selfcheck check-agent clean
+.PHONY: all warn asan test test-asan test-selfcheck check-agent demo clean
 
 all:
 	$(CC) -o dealerdesk $(SRC) -lm
@@ -30,6 +30,10 @@ test-selfcheck:
 # Checks the committed agent setup is well formed (spec 003).
 check-agent:
 	python3 scripts/check-agent-setup.py
+
+# Shows the fleet discount on a temp copy of the fixtures (decision D13).
+demo: all
+	python3 scripts/demo.py
 
 clean:
 	rm -f dealerdesk dealerdesk-warn dealerdesk-asan

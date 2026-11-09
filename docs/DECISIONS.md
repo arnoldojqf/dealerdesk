@@ -30,3 +30,6 @@ The ticket is silent on each of these; the call made is listed here. The full wo
 - **A6. Label.** The quote line is `Fleet discount`, shown only when above 0, with no percentage, to match the trade line.
 - **A7. Vehicle rules.** Nothing about reserved or sold vehicles changes for fleet customers.
 - **A8. Marking an existing customer.** Allowed only for a Retail customer, after a confirm question. A Trade customer is refused (it would silently swap the 10% trade discount for 4%), a Fleet customer is told they are already fleet, and there is no un-mark (Q3).
+
+## D13. `make demo` replays existing fleet scenarios on a temp copy of the fixtures (2026-11-09, phase 6)
+`scripts/demo.py` imports `read_sessions` and `FIXTURE` from `tests/golden.py` and runs the binary on a temporary copy of `tests/fixtures/data/`, so it never touches `data/` (rule 2) and needs no new scenario files. It shows `fleet_quote_10000` (a fleet quote with its own "Fleet discount" line) and `fleet_sell_view` (a fleet sale, then the stored invoice viewed after a reload). It compares nothing and writes nothing, so it is not a test; the goldens remain the check. Screen-clear escapes are replaced by a rule line so the output reads in a terminal log. No C change.
