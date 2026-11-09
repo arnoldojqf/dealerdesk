@@ -12,7 +12,7 @@ Budget: about 6-8 h in total. Each phase ends with a review and waits for approv
 | 3 | Spec 002: golden-master harness, `make test`, ASan in CI | 1 h 45 | done |
 | 4 | Spec 003: agent setup (settings, hook, slash commands, reviewer subagent) | 45 min | done; live proofs a-d and T6e (Write blocked by the Edit rules) shown; open: confirm the ask rule fires without `--permission-mode` |
 | 5 | Spec 004: TICKET-142, three gates | 2 h 15 | spec 004 done: implemented, verified, pushed, CI green on gcc and clang |
-| 6 | NOTES.md, `make demo`, traceability table, walkthrough dry run | 45 min | not started |
+| 6 | NOTES.md, `make demo`, traceability table, walkthrough dry run | 45 min | done: `make demo` (D13), NOTES.md (856 words, ticket table inside), dry run from a fresh clone passed |
 
 Cut order if time runs short: differential test, then `/spec` polish, then the ASan CI job (keep the gcc/clang job).
 
@@ -42,3 +42,4 @@ Status values: draft, approved, implemented, verified.
 | 2026-11-08 | Spec index: 002 set to verified (its `/verify` report and fixes exist); 001 reworded to say it was checked by hand only. | The rows still said "verify pending" after the 002 review had been run and fixed. 001 has no independent review, so it is not marked verified. |
 | 2026-11-09 | Spec 003: dead `Write(...)` deny rules removed from the spec and checker; T6e (live Write proof) added. | Claude Code 2.1.319 warns that `Write(path)` rules never match; `Edit(path)` covers all file-editing tools. |
 | 2026-11-09 | Spec 003 status line and R7 row updated (T6 and T6e closed; commands used on spec 004). Ask-rule follow-up not closed: a background session ran `golden.py --update cust_list` through the Bash tool with no visible denial and no diff, but the agent cannot see whether a prompt appeared or which permission mode applies. | Needs the owner to run it once in an interactive session started without `--permission-mode` and report whether a prompt shows. |
+| 2026-11-09 | Phase 6 done. Dry run from a fresh local clone of `1db9663`: `make`, `make warn`, `make test`, `make test-asan`, `make test-selfcheck`, `make check-agent`, `make demo` all exit 0 (47 passed twice). CI for `8629e92` green on gcc and clang. | Remaining open items are in NOTES.md "What I would do next". |
