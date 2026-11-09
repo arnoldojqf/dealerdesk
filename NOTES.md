@@ -44,7 +44,7 @@ Full list in `docs/agent-log.md`. The ones that taught me most:
 ## What I would do next
 
 - Run `/verify 001`: it is the only spec reviewed by hand only.
-- Confirm that the `--update` ask rule fires in a plain interactive session (open item in `docs/PLAN.md`), and close the `make CC=...` gap.
+- Close the `make CC=...` gap. (The `--update` ask rule was confirmed in a plain interactive session on 2026-11-09.)
 - Decide with the owner which of B1-B10 to fix, each as its own spec.
 - Add a flag or table for the fleet rate if the Sales Director wants per-customer rates.
 - Install clang locally; today it only runs in CI (D10).
