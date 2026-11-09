@@ -19,7 +19,12 @@ Steps:
    `.github/workflows/ci.yml` and the Makefile for the ID or for the scenario or
    step the traceability table names. Open the test and judge whether it would
    actually fail if the criterion were violated. A test that cannot fail does not count.
-3. Run the evidence: `make test`; plus `make test-asan` and
+3. Run the evidence. Run each command on its own, exactly as written below:
+   no pipes, no `&&` or `;`, no redirects, no `tail` or `head`. Commands that
+   chain or pipe may be refused in a background run, where nobody can approve a
+   prompt. If a command is still refused, say so in the report and mark the
+   criteria that depended on it "not run"; never present a read of the files as
+   a run. Commands: `make test`; plus `make test-asan` and
    `make test-selfcheck` if the spec involves tests or C; `make check-agent`
    if it involves the agent setup. Report the real counts and exit codes.
 4. Check the diff for things the spec does not allow:

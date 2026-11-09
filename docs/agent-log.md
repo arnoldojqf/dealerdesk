@@ -85,3 +85,9 @@ Moments where the agent or the human got something wrong, and how it was caught.
 - Caught by: the startup warning, not by any test. T6 (b) proved only an Edit under `tests/golden/`; the Write path was assumed.
 - Fix: checker changed first (new R3 check rejecting `Write(`/`MultiEdit(` rules, seen failing), settings edit by the owner, spec 003 wording and T6e (live Write proof) added.
 - Lesson: prove each tool path a rule claims to block, and read startup warnings as findings.
+
+## 2026-11-09: the first `/verify 001` ran nothing (spec 003 reviewer)
+- What: the `spec-reviewer` agent's Bash calls (`make test`, `git diff baseline ...`) were all refused, so its table was a reading of the files. It said so, but the report still looked like a verification and spec 001 nearly counted as reviewed.
+- Caught by: the reviewer's own first line ("I could not run anything"). I then gathered the missing evidence myself (`gh run view`, `git diff baseline`), read-only.
+- Fix: the reviewer prompt now says to run each command alone and to mark criteria "not run" instead of passing them on a read; spec 001 stays "implemented" until a rerun that really runs the commands.
+- Lesson: a review with no commands run is not a review. Check the first lines of a reviewer report for "could not run" before reading the table. The cause of the refusal (background run, no one to approve) is a guess until the rerun shows it.
